@@ -1,9 +1,20 @@
-.authform
-  = form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post, :role => 'form'}) do |f|
-    h3 Forgot your password?
-    p We'll send password reset instructions.
-    = devise_error_messages!
-    .form-group
-      = f.label :email
-      = f.email_field :email, :autofocus => true, class: 'form-control'
-    = f.submit 'Reset Password', :class => 'button right'
+.passwordBox.animated.fadeInDown
+  .row
+    .col-md-12
+      .ibox-content
+        h2.font-bold 비밀번호 분실
+        p
+          | 가입 시 등록한 이메일 주소를 입력하시면, 해당 이메일로 새로운 비밀번호를 생성할 수 있는 URL을 전달합니다.
+        .row
+          .col-lg-12
+            = form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => {:method => :post, :role => 'form'}) do |f|
+              = devise_error_messages!
+              .form-group
+                = f.email_field :email, :autofocus => true, class: 'form-control', :placeholder => '가입 시 등록한 이메일 주소'
+              = f.submit '비밀번호 리셋', :class => 'btn btn-primary block full-width m-b'
+  hr
+  .row
+    .col-md-6
+      | Copyright 맘마미아
+    .col-md-6.text-right
+      small © 2015

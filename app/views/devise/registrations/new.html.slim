@@ -1,17 +1,45 @@
-.authform
-  = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :role => 'form'}) do |f|
-    h3 Sign up
-    = devise_error_messages!
-    .form-group
-      = f.label :name
-      = f.text_field :name, :autofocus => true, class: 'form-control'
-    .form-group
-      = f.label :email
-      = f.email_field :email, class: 'form-control'
-    .form-group
-      = f.label :password
-      = f.password_field :password, class: 'form-control'
-    .form-group
-      = f.label :password_confirmation
-      = f.password_field :password_confirmation, class: 'form-control'
-    = f.submit 'Sign up', :class => 'button right'
+.middle-box.text-center.loginscreen.animated.fadeInDown
+  div
+    div
+      h1.logo-name M+
+    h3 회원등록
+    p 서비스 이용을 위해서는 회원가입이 필요합니다.
+    = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :role => 'form'}) do |f|
+      .form-group
+        = f.text_field :name, :autofocus => true, class: 'form-control', :placeholder => "이름"
+      .form-group
+        = f.email_field :email, class: 'form-control', :placeholder => "이메일"
+      .form-group
+        = f.password_field :password, class: 'form-control', :placeholder => "비밀번호"
+      .form-group
+        = f.password_field :password_confirmation, class: 'form-control', :placeholder => "비밀번호 확인"
+      .form-group
+        .checkbox.i-checks
+          label
+            input type="checkbox"
+            i
+            | &nbsp; 이용약관 및 정책 동의
+      = f.submit '회원가입', :class => 'btn btn-primary block full-width m-b'
+      p.text-muted.text-center
+        small 이미 맘마미아 회원이신가요?
+      = link_to "로그인 페이지로 이동", new_user_session_path, :class => 'btn btn-sm btn-white btn-block'
+    p.m-t
+      .row
+        .col-md-6
+          | Copyright 맘마미아
+        .col-md-6.text-right
+          small © 2015
+
+- content_for :headers do
+  == stylesheet_link_tag('pages')
+
+- content_for :javascript do
+  == javascript_include_tag('pages')
+
+  javascript:
+    $(function() {
+      $('.i-checks').iCheck({
+        checkboxClass: 'icheckbox_square-green',
+        radioClass: 'iradio_square-green'
+      })
+    });

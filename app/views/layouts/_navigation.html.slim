@@ -1,13 +1,93 @@
-/ navigation styled for Bootstrap 3.0
-nav.navbar.navbar-inverse.navbar-fixed-top
-  .container
-    .navbar-header
-      button.navbar-toggle[type="button" data-toggle="collapse" data-target=".navbar-collapse"]
-        span.sr-only Toggle navigation
-        span.icon-bar
-        span.icon-bar
-        span.icon-bar
-      = link_to 'Home', root_path, class: 'navbar-brand'
-    .collapse.navbar-collapse
-      ul.nav.navbar-nav
-        == render 'layouts/navigation_links'
+nav.navbar-default.navbar-static-side role="navigation"
+  .sidebar-collapse
+    ul#side-menu.nav.metismenu
+      li.nav-header
+        .dropdown.profile-element
+          a.dropdown-toggle data-toggle="dropdown" href="#"
+            span.clear
+              span.block.m-t-xs
+                strong.font-bold = current_user.name
+              span.text-muted.text-xs.block
+                | Example menu
+                b.caret
+          ul.dropdown-menu.animated.fadeInRight.m-t-xs
+            li
+              a href="#"  Logout
+        .logo-element
+          | IN+
+      li class=("#{'active' if current_page?('/contracts')}")
+        = link_to "#" do
+          i.fa.fa-book
+          span.nav-label 계약관리
+          span.fa.arrow
+          ul class=("nav nav-second-level")
+            li class="" = link_to "계약관리", "/contracts"
+            li class="" = link_to "신규등록", "/contracts/new"
+            li class="" = link_to "병원조회", "/"
+            li class="" = link_to "스튜디오조회", "/"
+            li class="" = link_to "영업대행사계약", "/"
+            li class="" = link_to "정산정보", "/"
+
+      li class=("#{'active' if current_page?('/equipment')}")
+        = link_to "/" do
+          i.fa.fa-gears
+          span.nav-label 장비관리
+          span.fa.arrow
+          ul class=("nav nav-second-level")
+            li class="" = link_to "장비관리", "/"
+            li class="" = link_to "장비등록", "/"
+            li class="" = link_to "장비히스토리", "/"
+      li class=("#{'active' if current_page?('/statistic')}")
+        = link_to "/" do
+          i.fa.fa-bar-chart
+          span.nav-label 통계관리
+      li class=("#{'active' if current_page?('/member')}")
+        = link_to "/" do
+          i.fa.fa-user
+          span.nav-label 회원관리
+          span.fa.arrow
+          ul class=("nav nav-second-level")
+            li class="" = link_to "회원정보", "/"
+            li class="" = link_to "특별회원", "/"
+            li class="" = link_to "어드민 회원관리", "/"
+            li class="" = link_to "어드민 추가/관리", "/"
+      li class=("#{'active' if current_page?('/consultation')}")
+        = link_to "/" do
+          i.fa.fa-comment
+          span.nav-label 상담관리
+          span.fa.arrow
+          ul class=("nav nav-second-level")
+            li class="" = link_to "병원상담", "/"
+            li class="" = link_to "스튜디오상담", "/"
+            li class="" = link_to "회원상담", "/"
+      li class=("#{'active' if current_page?('/site')}")
+        = link_to "/" do
+          i.fa.fa-sitemap
+          span.nav-label 사이트관리
+          span.fa.arrow
+          ul class=("nav nav-second-level")
+            li class=""
+              = link_to "/" do
+                | 병원
+                span.fa.arrow
+              ul class=("nav nav-third-level")
+                li class="" = link_to "공지사항", "/"
+                li class="" = link_to "팝업등록", "/"
+            li class=""
+              = link_to "/" do
+                | 스튜디오
+                span.fa.arrow
+              ul class=("nav nav-third-level")
+                li class="" = link_to "공지사항", "/"
+                li class="" = link_to "팝업등록", "/"
+            li class=""
+              = link_to "/" do
+                | 서비스사이트
+                span.fa.arrow
+              ul class=("nav nav-third-level")
+                li class="" = link_to "공지사항", "/"
+                li class="" = link_to "팝업등록", "/"
+      li class=("#{'active' if current_page?('/enhance')}")
+        = link_to "/" do
+          i.fa.fa-bullhorn
+          span.nav-label 개선사항

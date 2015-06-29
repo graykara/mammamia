@@ -1,16 +1,31 @@
 doctype html
 html
   head
-    meta[name="viewport" content="width=device-width, initial-scale=1.0"]
-    title
-      = content_for?(:title) ? yield(:title) : 'Mammamia'
-    meta name="description" content="#{content_for?(:description) ? yield(:description) : 'Mammamia'}"
-    == stylesheet_link_tag "application", :media => 'all', 'data-turbolinks-track' => true
+    title= content_for?(:title) ? yield(:title) : 'Mammamia'
+    meta[content='text/html; charset=UTF-8' http-equiv='Content-Type']
+    meta[charset='utf-8']
+    meta[content='width=device-width, initial-scale=1.0' name='viewport']
+    meta[name='description' content="#{content_for?(:description) ? yield(:description) : 'Mammamia'}"]
+    /! Main css styles
+    == stylesheet_link_tag    'application', :media => 'all', 'data-turbolinks-track' => true
+    /! Main javascript files
     == javascript_include_tag 'application', 'data-turbolinks-track' => true
+    == yield :head
     == csrf_meta_tags
   body
-    header
+    /! Wrapper
+    #wrapper
+      /! Navigation
       == render 'layouts/navigation'
-    main[role="main"]
-      == render 'layouts/messages'
-      == yield
+      /! Page wrapper
+      #page-wrapper.gray-bg
+        /! Page wrapper
+        == render 'layouts/topnavbar'
+        /! Main view
+        == render 'layouts/messages'
+        == yield
+        /! Footer
+        == render 'layouts/footer'
+          /! End page wrapper
+          /! End wrapper
+    == yield :javascript

@@ -1,32 +1,25 @@
-.authform
-  h3
-    | Edit #{resource_name.to_s.humanize}
-  = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :role => 'form'}) do |f|
-    = devise_error_messages!
-    .form-group
-      = f.label :name
-      = f.text_field :name, :autofocus => true, class: 'form-control'
-    .form-group
-      = f.label :email
-      = f.email_field :email, class: 'form-control'
-      - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-        div
-          | Currently waiting confirmation for: #{resource.unconfirmed_email}
-    fieldset
-      p Leave these fields blank if you don't want to change your password.
+.middle-box.text-center.loginscreen.animated.fadeInDown
+  div
+    div
+      h1.logo-name M+
+    h3 회원정보 수정
+    = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:method => :put, :role => 'form'}) do |f|
+      = devise_error_messages!
       .form-group
-        = f.label :password
-        = f.password_field :password, :autocomplete => 'off', class: 'form-control'
+        = f.text_field :name, :autofocus => true, class: 'form-control', :placeholder => '이름'
       .form-group
-        = f.label :password_confirmation
-        = f.password_field :password_confirmation, class: 'form-control'
-    fieldset
-      p You must enter your current password to make changes.
+        = f.email_field :email, class: 'form-control', :placeholder => '이메일'
       .form-group
-        = f.label :current_password
-        = f.password_field :current_password, class: 'form-control'
-    = f.submit 'Update', :class => 'button right'
-.authform
-  h3 Cancel Account
-  p Unhappy? We'll be sad to see you go.
-  = button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'button right'
+        = f.password_field :password, class: 'form-control', :placeholder => '비밀번호'
+      .form-group
+        = f.password_field :password_confirmation, class: 'form-control', :placeholder => '비밀번호 확인'
+      fieldset
+        p 회원정보를 수정하기 위해서는 현재 비밀번호을 입력하셔야 합니다.
+        .form-group
+          = f.password_field :current_password, class: 'form-control', :placeholder => '현재 비밀번호'
+      = f.submit '수정', :class => 'btn btn-warning'
+
+/.authform
+/  h3 Cancel Account
+/  p Unhappy? We'll be sad to see you go.
+/  = button_to 'Cancel my account', registration_path(resource_name), :data => {:confirm => 'Are you sure?'}, :method => :delete, :class => 'button right'
