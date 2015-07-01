@@ -1,0 +1,92 @@
+.row.wrapper.border-bottom.white-bg.page-heading
+  .col-sm-4
+    h2 어드민 회원목록
+    ol.breadcrumb
+      li
+        a href=("#{url_for controller: 'users', action: 'index'}")  Home
+      li.active
+        strong 회원관리
+  .col-sm-8
+    .title-action
+      a.btn.btn-primary href=""  This is action area
+
+.row.wrapper.wrapper-content.animated.fadeInRight
+  .col-lg-12
+    .ibox.float-e-margins
+      .ibox-title
+        h5 searching
+      .ibox-content
+        #data_5.form-inline.row
+          .col-sm-6
+            label.font-noraml 계약일자
+            #datepicker.input-daterange.input-group
+              input.input-sm.form-control name="start" type="text" value="05/14/2014" /
+              span.input-group-addon 부터
+              input.input-sm.form-control name="end" type="text" value="05/22/2014" /
+              span.input-group-addon 까지
+          .col-sm-6
+            label.font-noraml 계약일자
+            #datepicker.input-daterange.input-group
+              input.input-sm.form-control name="start" type="text" value="05/14/2014" /
+              span.input-group-addon 부터
+              input.input-sm.form-control name="end" type="text" value="05/22/2014" /
+              span.input-group-addon 까지
+
+  .col-lg-12
+    .ibox.float-e-margins
+      .ibox-title
+        h5 어드민회원 목록
+        .ibox-tools
+          a.collapse-link
+            i.fa.fa-chevron-up
+          a.close-link
+            i.fa.fa-times
+      .ibox-content
+        .table-responsive
+          table.table.table-striped
+            thead
+              tr
+                th
+                th 아이디
+                th 이름
+                th 권한
+                th 로그인횟수
+                th 가입일
+                th 보기
+                th 수정
+                th 삭제
+            tbody
+              - @admin_users.each do |admin_user|
+                tr
+                  td
+                    input.i-checks name="input[]" type="checkbox"
+                  td= admin_user.name
+                  td= admin_user.name
+                  td= admin_user.role
+                  td= admin_user.sign_in_count
+                  td= admin_user.created_at
+                  td= link_to 'Show', admin_user_path(admin_user)
+                  td= link_to 'Edit', edit_admin_user_path(admin_user)
+                  td= link_to 'Destroy', admin_user_path(admin_user), data: {:confirm => 'Are you sure?'}, :method => :delete
+
+
+= link_to 'New User', new_admin_user_path
+
+
+- content_for :head do
+  = stylesheet_link_tag 'pages'
+
+- content_for :javascript do
+  = javascript_include_tag 'pages'
+
+  javascript:
+    $(function () {
+      $('#data_5 .input-daterange').datepicker({
+        language: 'ko',
+        keyboardNavigation: false,
+        forceParse: false,
+        autoclose: true
+      });
+
+      $('input[name="daterange"]').daterangepicker();
+    });

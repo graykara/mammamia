@@ -1,0 +1,71 @@
+.row.wrapper.border-bottom.white-bg.page-heading
+  .col-sm-4
+    h2 회원정보
+    ol.breadcrumb
+      li
+        a href=("#{url_for controller: 'users', action: 'index'}")  Home
+      li.active
+        strong 회원관리
+  .col-sm-8
+    .title-action
+      a.btn.btn-primary href=""  This is action area
+.row.wrapper.wrapper-content.animated.fadeInRight
+  .col-lg-12
+    .ibox.float-e-margins
+      .ibox-title
+        h5 회원정보
+        .ibox-tools
+          a.collapse-link
+            i.fa.fa-chevron-up
+          a.close-link
+            i.fa.fa-times
+      .ibox-content
+        .table-responsive
+          table.table.table-bordered
+            tbody
+              tr
+                td 업체명
+                td[colspan="2" ]= @admin_user.partner_detail.corp_name
+                td 사업자 등록번호
+                td[colspan="3" ]= @admin_user.partner_detail.biz_reg_number
+              tr
+                td 노출서비스명
+                td[colspan="2" ]= @admin_user.partner_detail.nick_name
+                td 이벤트 노출여부
+                td[colspan="3" ]= @admin_user.partner_detail.event_published
+              tr
+                td 주소
+                td[colspan="2" ]= @admin_user.partner_detail.address_1
+                td 대표자명
+                td[colspan="3" ]= @admin_user.partner_detail.chief_name
+              tr
+                td 상세주소
+                td[colspan="2" ]= @admin_user.partner_detail.address_2
+                td FAX
+                td[colspan="3" ]= @admin_user.partner_detail.fax
+              tr
+                td[rowspan="2" ] 사업담당자
+                td 이름
+                td= @admin_user.partner_detail.biz_name
+                td 소속부서
+                td= @admin_user.partner_detail.biz_dept
+                td 전화번호
+                td= @admin_user.partner_detail.biz_tel
+              tr
+                td 이메일
+                td= @admin_user.partner_detail.biz_email
+                td 휴대폰번호
+                td[colspan="3" ]= @admin_user.partner_detail.biz_cell
+              tr
+                td[rowspan="2" ] 정산담당자
+                td 이름
+                td= @admin_user.partner_detail.fin_name
+                td 소속부서
+                td= @admin_user.partner_detail.fin_dept
+                td 전화번호
+                td= @admin_user.partner_detail.fin_tel
+              tr
+                td 이메일
+                td= @admin_user.partner_detail.fin_email
+                td 휴대폰번호
+                td[colspan="3" ]= @admin_user.partner_detail.fin_cell

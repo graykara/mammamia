@@ -1,0 +1,23 @@
+.row.wrapper.border-bottom.white-bg.page-heading
+  .col-sm-4
+    h2 어드민 회원추가
+    ol.breadcrumb
+      li
+        a href=("#{url_for controller: 'users', action: 'index'}")  Home
+      li.active
+        strong 회원관리
+  .col-sm-8
+    .title-action
+      a.btn.btn-primary href=""  This is action area
+.row.wrapper.wrapper-content.animated.fadeInRight
+  .col-lg-12
+    .ibox.float-e-margins
+      .ibox-title
+        h5 어드민회원 추가
+        .ibox-tools
+          a.collapse-link
+            i.fa.fa-chevron-up
+          a.close-link
+            i.fa.fa-times
+      .ibox-content
+        == render 'form'

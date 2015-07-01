@@ -1,0 +1,23 @@
+ko:
+  simple_form:
+    labels:
+      default:
+        password: 비밀번호
+      partner_detail:
+        corp_name: 업체명
+        chief_name: 대표자명
+        nick_name: 노출서비스명
+        event_published: 이벤트 노출 여부
+        biz_reg_number: 사업자 등록번호
+        biz_name:   이름
+        biz_email:  이메일
+        biz_dept:   소속부서명
+        biz_tel:    전화번호
+        biz_cell:   휴대폰번호
+        fin_name:   이름
+        fin_email:  이메일
+        fin_dept:   소속부서명
+        fin_tel:    전화번호
+        fin_cell:   휴대폰번호
+        address_1: 주소
+        address_2: 상세주소

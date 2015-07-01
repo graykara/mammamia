@@ -41,7 +41,7 @@ nav.navbar-default.navbar-static-side role="navigation"
         = link_to "/" do
           i.fa.fa-bar-chart
           span.nav-label 통계관리
-      li class=("#{'active' if current_page?('/member')}")
+      li class=("#{'active' if current_page?('/admin/users')}")
         = link_to "/" do
           i.fa.fa-user
           span.nav-label 회원관리
@@ -49,8 +49,8 @@ nav.navbar-default.navbar-static-side role="navigation"
           ul class=("nav nav-second-level")
             li class="" = link_to "회원정보", "/"
             li class="" = link_to "특별회원", "/"
-            li class="" = link_to "어드민 회원관리", "/"
-            li class="" = link_to "어드민 추가/관리", "/"
+            li class="" = link_to "어드민 회원관리",   admin_users_path
+            li class="" = link_to "어드민 추가/관리",  new_admin_user_path
       li class=("#{'active' if current_page?('/consultation')}")
         = link_to "/" do
           i.fa.fa-comment

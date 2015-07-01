@@ -1,0 +1,74 @@
+= simple_form_for(@admin_user, url: (@admin_user.new_record? ? admin_users_path : admin_user_path(@admin_user) ) ) do |f|
+
+  = f.error_notification
+
+  .form-inputs
+    .form-group
+      = f.text_field :name, :autofocus => true, class: 'form-control', :placeholder => "이름"
+    .form-group
+      = f.email_field :email, class: 'form-control', :placeholder => "이메일"
+    .form-group
+      = f.password_field :password, class: 'form-control', :placeholder => "비밀번호"
+    .form-group
+      = f.password_field :password_confirmation, class: 'form-control', :placeholder => "비밀번호 확인"
+
+    = f.simple_fields_for :partner_detail, defaults: { input_html: { class: 'tset' } } do |p|
+      .table-responsive
+        table.table.table-bordered
+          tbody
+            /tr
+            /  td.col-md-1= p.label :corp_name, :class => 'control-label'
+            /  td[colspan="2" ]= p.input :corp_name, :label => false, :class => 'form-control'
+            /  td 병원코드
+            /  td[colspan="3" ] 2
+            tr
+              td= p.label :corp_name, :class => 'control-label'
+              td[colspan="2" ]= p.input :corp_name, :label => false, :class => 'form-control'
+              td= p.label :biz_reg_number, :class => 'control-label'
+              td[colspan="3" ]= p.input :biz_reg_number, :label => false, :class => 'form-control'
+            tr
+              td= p.label :nick_name, :class => 'control-label'
+              td[colspan="2" ]= p.input :nick_name, :label => false, :class => 'form-control'
+              td= p.label :event_published, :class => 'control-label'
+              td[colspan="3" ]= p.input :event_published, :label => false, :class => 'form-control'
+            tr
+              td= p.label :address_1, :class => 'control-label'
+              td[colspan="2" ]= p.input :address_1, :label => false, :class => 'form-control'
+              td= p.label :chief_name, :class => 'control-label'
+              td[colspan="3" ]= p.input :chief_name, :label => false, :class => 'form-control'
+            tr
+              td= p.label :address_2, :class => 'control-label'
+              td[colspan="2" ]= p.input :address_2, :label => false, :class => 'form-control'
+              td= p.label :biz_reg_number, :class => 'control-label'
+              td[colspan="3" ]= p.input :corp_name, :label => false, :class => 'form-control'
+            tr
+              td[rowspan="2" ] 사업담당자
+              td= p.label :biz_name, :class => 'control-label'
+              td= p.input :biz_name, :label => false, :class => 'form-control'
+              td= p.label :biz_dept, :class => 'control-label'
+              td= p.input :biz_dept, :label => false, :class => 'form-control'
+              td= p.label :biz_tel, :class => 'control-label'
+              td= p.input :biz_tel, :label => false, :class => 'form-control'
+            tr
+              td= p.label :biz_email, :class => 'control-label'
+              td= p.input :biz_email, :label => false, :class => 'form-control'
+              td= p.label :biz_cell, :class => 'control-label'
+              td[colspan="3" ]= p.input :biz_cell, :label => false, :class => 'form-control'
+            tr
+              td[rowspan="2" ] 정산담당자
+              td= p.label :fin_name, :class => 'control-label'
+              td= p.input :fin_name, :label => false, :class => 'form-control'
+              td= p.label :fin_dept, :class => 'control-label'
+              td= p.input :fin_dept, :label => false, :class => 'form-control'
+              td= p.label :fin_tel, :class => 'control-label'
+              td= p.input :fin_tel, :label => false, :class => 'form-control'
+            tr
+              td= p.label :fin_email, :class => 'control-label'
+              td= p.input :fin_email, :label => false, :class => 'form-control'
+              td= p.label :fin_cell, :class => 'control-label'
+              td[colspan="3" ]= p.input :biz_cell, :label => false, :class => 'form-control'
+
+
+
+  .form-actions
+    =f.submit '회원추가', :class => 'btn btn-primary block m-b'

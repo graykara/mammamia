@@ -13,3 +13,10 @@
  *= require style
  *= require font-awesome
  */
+
+table.table tbody tr td .form-group {
+  margin-bottom: 0px;}
+table.table tbody tr td, table.table tbody tr td label {
+  vertical-align: middle;
+  margin-bottom: 0px;
+}
