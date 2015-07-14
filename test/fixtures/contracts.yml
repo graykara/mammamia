@@ -1,0 +1,67 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  hospital_user_id: 1
+  marketing_user_id: 1
+  hospital_code: MyString
+  studio_user_id: 1
+  partnership: false
+  contracted_at: 2015-07-01
+  contract_renewal: 1
+  setup_by: 1
+  setup_free: false
+  setup_fee: 1
+  setup_vat: false
+  equipment_by: 1
+  equipment_quantity: 1
+  equipment_free: false
+  equipment_fee: false
+  equipment_vat: false
+  manage_by: 1
+  manage_start_at: 2015-07-01 16:44:05
+  manage_period: 1
+  manage_vat: false
+  manage_pay_by: 1
+  marketing_company_id: 1
+  marketing_user_name: MyString
+  marketing_fee_use: false
+  marketing_fee: 1
+  marketing_fee_ratio: 1
+  marketing_fee_vat: false
+  marketing_equipment_fee_free: false
+  marketing_equipment_fee: 1
+  marketing_equipment_fee_ratio: 1
+  marketing_equipment_fee_vat: false
+
+two:
+  hospital_user_id: 1
+  marketing_user_id: 1
+  hospital_code: MyString
+  studio_user_id: 1
+  partnership: false
+  contracted_at: 2015-07-01
+  contract_renewal: 1
+  setup_by: 1
+  setup_free: false
+  setup_fee: 1
+  setup_vat: false
+  equipment_by: 1
+  equipment_quantity: 1
+  equipment_free: false
+  equipment_fee: false
+  equipment_vat: false
+  manage_by: 1
+  manage_start_at: 2015-07-01 16:44:05
+  manage_period: 1
+  manage_vat: false
+  manage_pay_by: 1
+  marketing_company_id: 1
+  marketing_user_name: MyString
+  marketing_fee_use: false
+  marketing_fee: 1
+  marketing_fee_ratio: 1
+  marketing_fee_vat: false
+  marketing_equipment_fee_free: false
+  marketing_equipment_fee: 1
+  marketing_equipment_fee_ratio: 1
+  marketing_equipment_fee_vat: false

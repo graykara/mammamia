@@ -1,0 +1,176 @@
+.row.wrapper.border-bottom.white-bg.page-heading
+  .col-lg-9
+    h2 계약관리
+    ol.breadcrumb
+      li
+        a href="/"  Home
+      li.active
+        strong 계약관리
+
+
+.wrapper.wrapper-content.animated.fadeInRight
+  .row
+    .col-lg-12
+      .ibox.float-e-margins
+        .ibox-title
+          h5 searching
+        .ibox-content
+          #data_5.form-inline.row
+            .col-sm-6
+              label.font-noraml 계약일자
+              #datepicker.input-daterange.input-group
+                input.input-sm.form-control name="start" type="text" value="05/14/2014" /
+                span.input-group-addon 부터
+                input.input-sm.form-control name="end" type="text" value="05/22/2014" /
+                span.input-group-addon 까지
+            .col-sm-6
+              label.font-noraml 계약일자
+              #datepicker.input-daterange.input-group
+                input.input-sm.form-control name="start" type="text" value="05/14/2014" /
+                span.input-group-addon 부터
+                input.input-sm.form-control name="end" type="text" value="05/22/2014" /
+                span.input-group-addon 까지
+
+
+  .row
+    .col-lg-12
+      .ibox.float-e-margins
+        .ibox-title
+          h5 계약 관리 목록
+          .ibox-tools
+            a.collapse-link
+              i.fa.fa-chevron-up
+            a.dropdown-toggle data-toggle="dropdown" href="#"
+              i.fa.fa-wrench
+            ul.dropdown-menu.dropdown-user
+              li
+                a href="#"  Config option 1
+              li
+                a href="#"  Config option 2
+            a.close-link
+              i.fa.fa-times
+        .ibox-content
+          .row
+            .col-sm-5.m-b-xs
+              select.input-sm.form-control.input-s-sm.inline
+                option value="0"  Option 1
+                option value="1"  Option 2
+                option value="2"  Option 3
+                option value="3"  Option 4
+            .col-sm-4.m-b-xs
+              .btn-group data-toggle="buttons"
+                label.btn.btn-sm.btn-white
+                  input#option1 name="options" type="radio"
+                  | Day
+                label.btn.btn-sm.btn-white.active
+                  input#option2 name="options" type="radio"
+                  | Week
+                label.btn.btn-sm.btn-white
+                  input#option3 name="options" type="radio"
+                  | Month
+            .col-sm-3
+              .input-group
+                input.input-sm.form-control placeholder="Search" type="text"
+                span.input-group-btn
+                  button.btn.btn-sm.btn-primary type="button"  Go!
+          .table-responsive
+            table.table.table-striped
+              thead
+                tr
+                  th
+                  th 계약일자
+                  th 지역
+                  th 병원
+                  th 병원아이디
+                  th 사업담당자명
+                  th 사업담당자 전화번호
+                  th 장비
+                  th 서비스 형태
+                  th 최근업로드일자
+                  th 스튜디오명
+                  th action
+              tbody
+                - @admin_contracts.each do |contract|
+                  tr
+                    td
+                      input.i-checks name="input[]" type="checkbox"
+                    td 2015.01.01
+                    td 서울 강남구
+                    td 맘마산부인과
+                    td mamma
+                    td 홍길동
+                    td 02-632-2365
+                    td 0
+                    td 카드, CD
+                    td 2015.01.01
+                    td 미등록
+                    td
+                      a href="#"
+                        i.fa.fa-check.text-navy
+                // Dummy
+                tr
+                  td
+                    input.i-checks name="input[]" type="checkbox"
+                  td 2015.01.01
+                  td 서울 강남구
+                  td 맘마산부인과
+                  td mamma
+                  td 홍길동
+                  td 02-632-2365
+                  td 0
+                  td 카드, CD
+                  td 2015.01.01
+                  td 미등록
+                  td
+                    a href="#"
+                      i.fa.fa-check.text-navy
+                tr
+                  td
+                    input.i-checks name="input[]" type="checkbox"
+                  td 2015.01.01
+                  td 서울 강남구
+                  td 맘마산부인과
+                  td mamma
+                  td 홍길동
+                  td 02-632-2365
+                  td 0
+                  td 카드, CD
+                  td 2015.01.01
+                  td 미등록
+                  td
+                    a href="#"
+                      i.fa.fa-check.text-navy
+
+table
+  thead
+    tr
+      th
+      th
+      th
+
+  tbody
+    - @admin_contracts.each do |contract|
+      tr
+        td = link_to 'Show', admin_contract_path(contract)
+        td = link_to 'Edit', edit_admin_contract_path(contract)
+        td = link_to 'Destroy', admin_contract_path(contract), data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+- content_for :head do
+  = stylesheet_link_tag 'pages'
+
+- content_for :javascript do
+  = javascript_include_tag 'pages'
+
+  javascript:
+    $(function () {
+      $('#data_5 .input-daterange').datepicker({
+        language: 'ko',
+        keyboardNavigation: false,
+        forceParse: false,
+        autoclose: true
+      });
+
+      $('input[name="daterange"]').daterangepicker();
+    });

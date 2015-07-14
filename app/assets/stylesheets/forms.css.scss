@@ -16,3 +16,6 @@
 //= require daterangepicker/daterangepicker-bs3.css
 //= require clockpicker/clockpicker.css
 //= require awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css
+
+.wizard-big.wizard > .content { height: 640px; }
+.wizard > .content > .body label.error { position: absolute; margin-left: 1em; padding: 6px 0; }

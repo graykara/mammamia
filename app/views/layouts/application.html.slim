@@ -10,6 +10,7 @@ html
     == stylesheet_link_tag    'application', :media => 'all', 'data-turbolinks-track' => true
     /! Main javascript files
     == javascript_include_tag 'application', 'data-turbolinks-track' => true
+    == stylesheet_link_tag 'forms'
     == yield :head
     == csrf_meta_tags
   body
@@ -28,4 +29,5 @@ html
         == render 'layouts/footer'
           /! End page wrapper
           /! End wrapper
+    == javascript_include_tag 'forms'
     == yield :javascript

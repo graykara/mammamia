@@ -3,8 +3,9 @@ Rails.application.routes.draw do
   devise_for :users
   resources :users
 
-  namespace :admin do
+  namespace 'admin' do
     resources :users
+    resources :contracts
   end
 
 end

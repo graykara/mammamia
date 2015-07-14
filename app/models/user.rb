@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_one :partner_detail
+  belongs_to :contract
 
   accepts_nested_attributes_for :partner_detail
 end

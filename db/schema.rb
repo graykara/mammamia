@@ -11,10 +11,46 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150701024858) do
+ActiveRecord::Schema.define(version: 20150713030542) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "contracts", force: :cascade do |t|
+    t.integer  "hospital_user_id"
+    t.integer  "marketing_user_id"
+    t.string   "hospital_code"
+    t.integer  "studio_user_id"
+    t.boolean  "partnership"
+    t.date     "contracted_at"
+    t.integer  "contract_renewal"
+    t.integer  "setup_by"
+    t.boolean  "setup_free"
+    t.integer  "setup_fee"
+    t.boolean  "setup_vat"
+    t.integer  "equipment_by"
+    t.integer  "equipment_quantity"
+    t.boolean  "equipment_free"
+    t.boolean  "equipment_fee"
+    t.boolean  "equipment_vat"
+    t.integer  "manage_by"
+    t.datetime "manage_start_at"
+    t.integer  "manage_period"
+    t.boolean  "manage_vat"
+    t.integer  "manage_pay_by"
+    t.integer  "marketing_company_id"
+    t.string   "marketing_user_name"
+    t.boolean  "marketing_fee_use"
+    t.integer  "marketing_fee"
+    t.integer  "marketing_fee_ratio"
+    t.boolean  "marketing_fee_vat"
+    t.boolean  "marketing_equipment_fee_free"
+    t.integer  "marketing_equipment_fee"
+    t.integer  "marketing_equipment_fee_ratio"
+    t.boolean  "marketing_equipment_fee_vat"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
 
   create_table "partner_details", force: :cascade do |t|
     t.integer  "user_type"
@@ -58,6 +94,8 @@ ActiveRecord::Schema.define(version: 20150701024858) do
     t.datetime "updated_at",                          null: false
     t.string   "name"
     t.integer  "role"
+    t.integer  "contract_id"
+    t.integer  "user_type"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

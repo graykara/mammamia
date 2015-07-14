@@ -1,0 +1,21 @@
+.row.wrapper.border-bottom.white-bg.page-heading
+  .col-lg-9
+    h2 계약관리
+    ol.breadcrumb
+      li
+        a href="/"  Home
+      li
+        | 계약관리
+      li.active
+        strong 신규등록
+
+.wrapper.wrapper-content.animated.fadeInRight
+  .row
+    .col-lg-12
+      .ibox
+        .ibox-title
+
+        .ibox-content
+          h2 신규등록
+          p 계약관리 신규등록
+          == render 'form'

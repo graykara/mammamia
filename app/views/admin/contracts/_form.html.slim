@@ -1,0 +1,213 @@
+= simple_form_for(@admin_contract, url: (@admin_contract.new_record? ? admin_contracts_path : admin_contract_path(@admin_contract) ), :html => { id: 'form', class: 'wizard-big' } ) do |f|
+  h1 병원정보
+  fieldset
+    h1 병원정보
+    fieldset
+      .row
+        = f.simple_fields_for :hospital_user do |h|
+          = h.simple_fields_for :partner_detail do |hp|
+            .table-responsive
+              table.table.table-bordered
+                tbody
+                  tr
+                    td= hp.label :corp_name, :class => 'control-label'
+                    td[colspan="2" ]= hp.input :corp_name, :label => false, :class => 'form-control'
+                    td= hp.label :biz_reg_number, :class => 'control-label'
+                    td[colspan="3" ]= hp.input :biz_reg_number, :label => false, :class => 'form-control'
+                  tr
+                    td= hp.label :nick_name, :class => 'control-label'
+                    td[colspan="2" ]= hp.input :nick_name, :label => false, :class => 'form-control'
+                    td= hp.label :event_published, :class => 'control-label'
+                    td[colspan="3" ]= hp.input :event_published, :label => false, :class => 'form-control'
+                  tr
+                    td= hp.label :address_1, :class => 'control-label'
+                    td[colspan="2" ]= hp.input :address_1, :label => false, :class => 'form-control'
+                    td= hp.label :chief_name, :class => 'control-label'
+                    td[colspan="3" ]= hp.input :chief_name, :label => false, :class => 'form-control'
+                  tr
+                    td= hp.label :address_2, :class => 'control-label'
+                    td[colspan="2" ]= hp.input :address_2, :label => false, :class => 'form-control'
+                    td= hp.label :fax, :class => 'control-label'
+                    td[colspan="3" ]= hp.input :fax, :label => false, :class => 'form-control'
+                  tr
+                    td[rowspan="2" ] 사업담당자
+                    td= hp.label :biz_name, :class => 'control-label'
+                    td= hp.input :biz_name, :label => false, :class => 'form-control'
+                    td= hp.label :biz_dept, :class => 'control-label'
+                    td= hp.input :biz_dept, :label => false, :class => 'form-control'
+                    td= hp.label :biz_tel, :class => 'control-label'
+                    td= hp.input :biz_tel, :label => false, :class => 'form-control'
+                  tr
+                    td= hp.label :biz_email, :class => 'control-label'
+                    td= hp.input :biz_email, :label => false, :class => 'form-control'
+                    td= hp.label :biz_cell, :class => 'control-label'
+                    td[colspan="3" ]= hp.input :biz_cell, :label => false, :class => 'form-control'
+                  tr
+                    td[rowspan="2" ] 정산담당자
+                    td= hp.label :fin_name, :class => 'control-label'
+                    td= hp.input :fin_name, :label => false, :class => 'form-control'
+                    td= hp.label :fin_dept, :class => 'control-label'
+                    td= hp.input :fin_dept, :label => false, :class => 'form-control'
+                    td= hp.label :fin_tel, :class => 'control-label'
+                    td= hp.input :fin_tel, :label => false, :class => 'form-control'
+                  tr
+                    td= hp.label :fin_email, :class => 'control-label'
+                    td= hp.input :fin_email, :label => false, :class => 'form-control'
+                    td= hp.label :fin_cell, :class => 'control-label'
+                    td[colspan="3" ]= hp.input :biz_cell, :label => false, :class => 'form-control'
+                  tr
+                    td= h.label :name, :class => 'control-label'
+                    td[colspan="2" ]= h.input :name, :label => false, :class => 'form-control'
+                    td= h.label :email, :class => 'control-label'
+                    td[colspan="3" ]= h.email_field :email, :label => false, :class => 'form-control'
+                  tr
+                    td= h.label :password, :class => 'control-label'
+                    td[colspan="2" ]= h.password_field :password, :label => false, :class => 'form-control'
+                    td= h.label :password_confirmation, :class => 'control-label'
+                    td[colspan="3" ]= h.password_field :password_confirmation, :label => false, :class => 'form-control'
+  h1 스튜디오정보
+  fieldset
+    h2 Profile Information
+    .row
+      = f.simple_fields_for :studio_users do |s|
+        = s.simple_fields_for :partner_detail do |sp|
+          .table-responsive
+            table.table.table-bordered
+              tbody
+                tr
+                  td= sp.label :corp_name, :class => 'control-label'
+                  td[colspan="2" ]= sp.input :corp_name, :label => false, :class => 'form-control'
+                  td= sp.label :biz_reg_number, :class => 'control-label'
+                  td[colspan="3" ]= sp.input :biz_reg_number, :label => false, :class => 'form-control'
+                tr
+                  td= sp.label :nick_name, :class => 'control-label'
+                  td[colspan="2" ]= sp.input :nick_name, :label => false, :class => 'form-control'
+                  td= sp.label :event_published, :class => 'control-label'
+                  td[colspan="3" ]= sp.input :event_published, :label => false, :class => 'form-control'
+                tr
+                  td= sp.label :address_1, :class => 'control-label'
+                  td[colspan="2" ]= sp.input :address_1, :label => false, :class => 'form-control'
+                  td= sp.label :chief_name, :class => 'control-label'
+                  td[colspan="3" ]= sp.input :chief_name, :label => false, :class => 'form-control'
+                tr
+                  td= sp.label :address_2, :class => 'control-label'
+                  td[colspan="2" ]= sp.input :address_2, :label => false, :class => 'form-control'
+                  td= sp.label :fax, :class => 'control-label'
+                  td[colspan="3" ]= sp.input :fax, :label => false, :class => 'form-control'
+                tr
+                  td[rowspan="2" ] 사업담당자
+                  td= sp.label :biz_name, :class => 'control-label'
+                  td= sp.input :biz_name, :label => false, :class => 'form-control'
+                  td= sp.label :biz_dept, :class => 'control-label'
+                  td= sp.input :biz_dept, :label => false, :class => 'form-control'
+                  td= sp.label :biz_tel, :class => 'control-label'
+                  td= sp.input :biz_tel, :label => false, :class => 'form-control'
+                tr
+                  td= sp.label :biz_email, :class => 'control-label'
+                  td= sp.input :biz_email, :label => false, :class => 'form-control'
+                  td= sp.label :biz_cell, :class => 'control-label'
+                  td[colspan="3" ]= sp.input :biz_cell, :label => false, :class => 'form-control'
+                tr
+                  td[rowspan="2" ] 정산담당자
+                  td= sp.label :fin_name, :class => 'control-label'
+                  td= sp.input :fin_name, :label => false, :class => 'form-control'
+                  td= sp.label :fin_dept, :class => 'control-label'
+                  td= sp.input :fin_dept, :label => false, :class => 'form-control'
+                  td= sp.label :fin_tel, :class => 'control-label'
+                  td= sp.input :fin_tel, :label => false, :class => 'form-control'
+                tr
+                  td= sp.label :fin_email, :class => 'control-label'
+                  td= sp.input :fin_email, :label => false, :class => 'form-control'
+                  td= sp.label :fin_cell, :class => 'control-label'
+                  td[colspan="3" ]= sp.input :biz_cell, :label => false, :class => 'form-control'
+                tr
+                  td= s.label :name, :class => 'control-label'
+                  td[colspan="2" ]= s.input :name, :label => false, :class => 'form-control'
+                  td= s.label :email, :class => 'control-label'
+                  td[colspan="3" ]= s.email_field :email, :label => false, :class => 'form-control'
+                tr
+                  td= s.label :password, :class => 'control-label'
+                  td[colspan="2" ]= s.password_field :password, :label => false, :class => 'form-control'
+                  td= s.label :password_confirmation, :class => 'control-label'
+                  td[colspan="3" ]= s.password_field :password_confirmation, :label => false, :class => 'form-control'
+  h1 계약(정산)정보
+  fieldset
+    h2 Terms and Conditions
+    input#acceptTerms.required name="acceptTerms" type="checkbox" /
+    label for="acceptTerms"  I agree with the Terms and Conditions.
+
+- content_for :head do
+  / = stylesheet_link_tag 'forms'
+
+- content_for :javascript do
+  / == javascript_include_tag 'forms'
+
+  javascript:
+    $(function () {
+      $("#form").steps({
+        bodyTag: "fieldset",
+        onStepChanging: function (event, currentIndex, newIndex) {
+          // Always allow going backward even if the current step contains invalid fields!
+          if (currentIndex > newIndex) {
+            return true;
+          }
+
+          // Forbid suppressing "Warning" step if the user is to young
+          if (newIndex === 3) {
+            return false;
+          }
+
+          var form = $(this);
+
+          // Clean up if user went backward before
+          if (currentIndex < newIndex) {
+            // To remove error styles
+            $(".body:eq(" + newIndex + ") label.error", form).remove();
+            $(".body:eq(" + newIndex + ") .error", form).removeClass("error");
+          }
+
+          // Disable validation on fields that are disabled or hidden.
+          form.validate().settings.ignore = ":disabled,:hidden";
+
+          // Start validation; Prevent going forward if false
+          return form.valid();
+        },
+        onStepChanged: function (event, currentIndex, priorIndex) {
+          // Suppress (skip) "Warning" step if the user is old enough.
+          if (currentIndex === 2) {
+            $(this).steps("next");
+          }
+
+          // Suppress (skip) "Warning" step if the user is old enough and wants to the previous step.
+          if (currentIndex === 2 && priorIndex === 3) {
+            $(this).steps("previous");
+          }
+        },
+        onFinishing: function (event, currentIndex) {
+          var form = $(this);
+
+          // Disable validation on fields that are disabled.
+          // At this point it's recommended to do an overall check (mean ignoring only disabled fields)
+          form.validate().settings.ignore = ":disabled";
+
+          // Start validation; Prevent form submission if false
+          return form.valid();
+        },
+        onFinished: function (event, currentIndex) {
+          var form = $(this);
+
+          // Submit form input
+          form.submit();
+        }
+      }).validate({
+        errorPlacement: function (error, element) {
+          element.before(error);
+        },
+        rules: {
+          confirm: {
+            equalTo: "#password"
+          }
+        }
+      });
+
+    });
