@@ -1,9 +1,6 @@
 set :application, 'mammamia'
 
-set :scm, 'git'
-set :repository, '.'
-set :deploy_via, :copy
-set :local_repository, '.'
+set :repo_url, 'git@github.com:graykara/mammamia.git'
 
 ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 
