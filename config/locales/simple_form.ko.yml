@@ -3,6 +3,18 @@ ko:
     labels:
       default:
         password: 비밀번호
+      hospital_user:
+        name: 아이디
+        email: 이메일
+        password: 비밀번호
+        password_confirmation: 비밀번호 확인
+        current_password: 현재 비밀번호
+      studio_users:
+        name: 아이디
+        email: 이메일
+        password: 비밀번호
+        password_confirmation: 비밀번호 확인
+        current_password: 현재 비밀번호
       partner_detail:
         corp_name: 업체명
         chief_name: 대표자명
@@ -22,3 +34,29 @@ ko:
         address_1: 주소
         address_2: 상세주소
         fax: 팩스번호
+      contract:
+        equipment_by: 정산주체
+        equipment_quantity: 장비수
+        equipment_fee: 금액
+        setup_by: 정산 주체
+        setup_fee: 금액
+        manage_by: 정산주체
+        manage_start_at: 발효일
+        manage_period: 정산주기
+        manage_vat: 금액
+        manage_pay_by: 지급주체
+        marketing_user_name: 영업 담당자
+        marketing_fee_use: 운영수수료
+        marketing_fee: 금액
+        marketing_fee_ratio: 요율
+        marketing_fee_vat: VAT
+        marketing_equipment_fee_free: 장비비수수료
+        marketing_equipment_fee: 금액
+        marketing_equipment_fee_ratio: 요율
+        marketing_equipment_fee_vat: VAT
+
+        date:
+          order:
+            - :day
+            - :month
+            - :year

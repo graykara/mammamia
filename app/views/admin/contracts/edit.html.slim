@@ -1,8 +1,21 @@
-h1 Editing admin_contract
+.row.wrapper.border-bottom.white-bg.page-heading
+  .col-lg-9
+    h2 계약관리
+    ol.breadcrumb
+      li
+        a href="/"  Home
+      li
+        | 계약관리
+      li.active
+        strong 계약 수정
 
-== render 'form'
+.wrapper.wrapper-content.animated.fadeInRight
+  .row
+    .col-lg-12
+      .ibox
+        .ibox-title
 
-= link_to 'Show', @admin_contract
-'|
-= link_to 'Back', admin_contracts_path
-
+        .ibox-content
+          h2 수정
+          p 계약관리 수정
+          == render 'form'

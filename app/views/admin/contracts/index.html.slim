@@ -94,68 +94,23 @@
                   tr
                     td
                       input.i-checks name="input[]" type="checkbox"
-                    td 2015.01.01
+                    td= contract.created_at
                     td 서울 강남구
-                    td 맘마산부인과
-                    td mamma
-                    td 홍길동
-                    td 02-632-2365
+                    td= contract.hospital_user.partner_detail.corp_name
+                    td= contract.hospital_user.name
+                    td= contract.hospital_user.partner_detail.biz_name
+                    td= contract.hospital_user.partner_detail.biz_tel
                     td 0
                     td 카드, CD
                     td 2015.01.01
-                    td 미등록
+                    td= contract.studio_users.count
                     td
-                      a href="#"
-                        i.fa.fa-check.text-navy
-                // Dummy
-                tr
-                  td
-                    input.i-checks name="input[]" type="checkbox"
-                  td 2015.01.01
-                  td 서울 강남구
-                  td 맘마산부인과
-                  td mamma
-                  td 홍길동
-                  td 02-632-2365
-                  td 0
-                  td 카드, CD
-                  td 2015.01.01
-                  td 미등록
-                  td
-                    a href="#"
-                      i.fa.fa-check.text-navy
-                tr
-                  td
-                    input.i-checks name="input[]" type="checkbox"
-                  td 2015.01.01
-                  td 서울 강남구
-                  td 맘마산부인과
-                  td mamma
-                  td 홍길동
-                  td 02-632-2365
-                  td 0
-                  td 카드, CD
-                  td 2015.01.01
-                  td 미등록
-                  td
-                    a href="#"
-                      i.fa.fa-check.text-navy
+                      = link_to 'Edit', edit_admin_contract_path(contract)
+                        /i.fa.fa-check.text-navy
 
-table
-  thead
-    tr
-      th
-      th
-      th
-
-  tbody
-    - @admin_contracts.each do |contract|
-      tr
-        td = link_to 'Show', admin_contract_path(contract)
-        td = link_to 'Edit', edit_admin_contract_path(contract)
-        td = link_to 'Destroy', admin_contract_path(contract), data: {:confirm => 'Are you sure?'}, :method => :delete
-
-br
+/td = link_to 'Show', admin_contract_path(contract)
+/td = link_to 'Edit', edit_admin_contract_path(contract)
+/td = link_to 'Destroy', admin_contract_path(contract), data: {:confirm => 'Are you sure?'}, :method => :delete
 
 - content_for :head do
   = stylesheet_link_tag 'pages'

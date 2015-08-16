@@ -15,4 +15,7 @@ class User < ActiveRecord::Base
   belongs_to :contract
 
   accepts_nested_attributes_for :partner_detail
+
+  validates :password, presence: true, length: {minimum: 6, maximum: 10}, on: :create
+  validates :password, length: {minimum: 6, maximum: 10}, on: :update, allow_blank: true
 end

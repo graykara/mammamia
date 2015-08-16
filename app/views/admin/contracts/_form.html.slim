@@ -1,7 +1,7 @@
 = simple_form_for(@admin_contract, url: (@admin_contract.new_record? ? admin_contracts_path : admin_contract_path(@admin_contract) ), :html => { id: 'form', class: 'wizard-big' } ) do |f|
   h1 병원정보
   fieldset
-    h1 병원정보
+    h2 병원정보
     fieldset
       .row
         = f.simple_fields_for :hospital_user do |h|
@@ -18,7 +18,10 @@
                     td= hp.label :nick_name, :class => 'control-label'
                     td[colspan="2" ]= hp.input :nick_name, :label => false, :class => 'form-control'
                     td= hp.label :event_published, :class => 'control-label'
-                    td[colspan="3" ]= hp.input :event_published, :label => false, :class => 'form-control'
+                    td[colspan="3" ]
+                      .checkbox.checkbox-success
+                        = hp.check_box :event_published
+                        label= ' '
                   tr
                     td= hp.label :address_1, :class => 'control-label'
                     td[colspan="2" ]= hp.input :address_1, :label => false, :class => 'form-control'
@@ -67,7 +70,7 @@
                     td[colspan="3" ]= h.password_field :password_confirmation, :label => false, :class => 'form-control'
   h1 스튜디오정보
   fieldset
-    h2 Profile Information
+    h2 스튜디오정보
     .row
       = f.simple_fields_for :studio_users do |s|
         = s.simple_fields_for :partner_detail do |sp|
@@ -83,7 +86,10 @@
                   td= sp.label :nick_name, :class => 'control-label'
                   td[colspan="2" ]= sp.input :nick_name, :label => false, :class => 'form-control'
                   td= sp.label :event_published, :class => 'control-label'
-                  td[colspan="3" ]= sp.input :event_published, :label => false, :class => 'form-control'
+                  td[colspan="3" ]
+                    .checkbox.checkbox-success
+                      = sp.check_box :event_published
+                      label= ' '
                 tr
                   td= sp.label :address_1, :class => 'control-label'
                   td[colspan="2" ]= sp.input :address_1, :label => false, :class => 'form-control'
@@ -132,20 +138,197 @@
                   td[colspan="3" ]= s.password_field :password_confirmation, :label => false, :class => 'form-control'
   h1 계약(정산)정보
   fieldset
-    h2 Terms and Conditions
-    input#acceptTerms.required name="acceptTerms" type="checkbox" /
-    label for="acceptTerms"  I agree with the Terms and Conditions.
-
-- content_for :head do
-  / = stylesheet_link_tag 'forms'
+    h2 계약(정산)정보
+    .row
+      .table-responsive
+        table.table.table-bordered
+          tbody
+            tr
+              td= f.label '병원명', :class => 'control-label'
+              td.contract_corp[colspan="2" ]
+              td= f.label '병원코드', :class => 'control-label'
+              td[colspan="2" ]= f.input :hospital_code, label: false
+            tr
+              td= f.label '영업담당자', :class => 'control-label'
+              td[colspan="2" ] | 111
+              td= f.label '스튜디오명', :class => 'control-label'
+              td[colspan="2" ] | 111
+            tr
+              td= f.label '계약일자', :class => 'control-label'
+              td[colspan="2" ]= f.input :contracted_at, :label => false, as: :string, :input_html => { :class => 'datepicker input-group date' }
+              td[rowspan="4" ]= f.label '장비비', :class => 'control-label'
+              td= f.label :equipment_by
+              td= f.input :equipment_by,
+                          collection: [[0, '병원'], [1, '스튜디오']],
+                          label: false,
+                          label_method: :last,
+                          value_method: :first,
+                          as: :radio_buttons,
+                          item_wrapper_class: 'inline',
+                          checked: @admin_contract.equipment_by
+            tr
+              td[rowspan="3" ]= f.label '설치비', :class => 'control-label'
+              td= f.label :setup_by
+              td= f.input :setup_by,
+                          collection: [[0, '병원'], [1, '스튜디오']],
+                          label_method: :last,
+                          value_method: :first,
+                          as: :radio_buttons,
+                          label: false,
+                          item_wrapper_class: 'inline',
+                          checked: @admin_contract.setup_by
+              td= f.label :equipment_quantity
+              td= f.input :equipment_quantity,
+                          label: false,
+                          item_wrapper_class: 'inline',
+                          input_html: { min: '0' }
+            tr
+              td
+                = f.input :setup_free,
+                          collection: [[0, '무상'], [1, '유상']],
+                          label_method: :last,
+                          value_method: :first,
+                          as: :radio_buttons,
+                          label: false,
+                          item_wrapper_class: 'inline',
+                          checked: @admin_contract.setup_free
+              td.form-inline
+                = f.input :setup_fee, as: 'string', inline_label: true
+              td
+                = f.input :equipment_free,
+                          collection: [[0, '무상'], [1, '유상']],
+                          label_method: :last,
+                          value_method: :first,
+                          as: :radio_buttons,
+                          label: false,
+                          item_wrapper_class: 'inline',
+                          checked: @admin_contract.equipment_free
+              td.form-inline
+                = f.input :equipment_fee, as: 'string', inline_label: true
+            tr
+              td[colspan="2" ]= f.input :setup_vat,
+                                collection: [[0, 'VAT포함'], [1, 'VAT미포함']],
+                                label_method: :last,
+                                value_method: :first,
+                                as: :radio_buttons,
+                                label: false,
+                                item_wrapper_class: 'inline',
+                                checked: @admin_contract.setup_vat
+              td[colspan="2" ]= f.input :equipment_vat,
+                                collection: [[0, 'VAT포함'], [1, 'VAT미포함']],
+                                label_method: :last,
+                                value_method: :first,
+                                as: :radio_buttons,
+                                label: false,
+                                item_wrapper_class: 'inline',
+                                checked: @admin_contract.equipment_vat
+            tr
+              td[rowspan="3" ]= f.label '운영비', :class => 'control-label'
+              td= f.label :manage_by
+              td[colspan="4" ]= f.input :manage_by,
+                          collection: [[0, '병원'], [1, '스튜디오']],
+                          label: false,
+                          label_method: :last,
+                          value_method: :first,
+                          as: :radio_buttons,
+                          item_wrapper_class: 'inline',
+                          checked: @admin_contract.manage_by
+            tr
+              td= f.label '발효일', :class => 'control-label'
+              td#manage_start_at
+                = f.input :manage_start_at, :label => false, as: :string, :input_html => { :class => 'datepicker input-group date' }
+              td= f.label '정산주기', :class => 'control-label'
+              td[colspan="2"]
+                = f.input :manage_period,
+                          collection: [[0, '15일'], [1, '30일']],
+                          label_method: :last,
+                          value_method: :first,
+                          as: :radio_buttons,
+                          label: false,
+                          item_wrapper_class: 'inline',
+                          checked: @admin_contract.manage_period
+            tr
+              td= f.label :manage_vat
+              td
+                = f.input :manage_vat,
+                          collection: [[0, 'VAT포함'], [1, 'VAT미포함']],
+                          label_method: :last,
+                          value_method: :first,
+                          as: :radio_buttons,
+                          label: false,
+                          item_wrapper_class: 'inline',
+                          checked: @admin_contract.manage_vat
+              td= f.label :manage_pay_by
+              td[colspan="2" ]
+                = f.input :manage_pay_by,
+                          collection: [[0, '병원'], [1, '스튜디오']],
+                          label_method: :last,
+                          value_method: :first,
+                          as: :radio_buttons,
+                          label: false,
+                          item_wrapper_class: 'inline',
+                          checked: @admin_contract.manage_pay_by
+            tr
+              td[rowspan="4" ]= f.label '영업대행사 수수료', :class => 'control-label'
+              td= f.label :marketing_fee_use
+              td= f.input :marketing_fee_use,
+                          collection: [[0, '있음'], [1, '없음']],
+                          label: false,
+                          label_method: :last,
+                          value_method: :first,
+                          as: :radio_buttons,
+                          item_wrapper_class: 'inline',
+                          checked: @admin_contract.marketing_fee_use
+              td= f.label :marketing_equipment_fee_free
+              td= f.input :marketing_equipment_fee_free,
+                          collection: [[0, '있음'], [1, '없음']],
+                          label: false,
+                          label_method: :last,
+                          value_method: :first,
+                          as: :radio_buttons,
+                          item_wrapper_class: 'inline',
+                          checked: @admin_contract.marketing_equipment_fee_free
+            tr
+              td= f.label :marketing_fee
+              td= f.input :marketing_fee, as: :string, label: false
+              td= f.label :marketing_equipment_fee
+              td[colspan="2" ]= f.input :marketing_equipment_fee, as: :string, label: false
+            tr
+              td= f.label :marketing_fee_ratio
+              td= f.input :marketing_fee_ratio, as: :string, label: false
+              td= f.label :marketing_equipment_fee_ratio
+              td[colspan="2" ]= f.input :marketing_equipment_fee_ratio, as: :string, label: false
+            tr
+              td= f.label :marketing_fee_vat
+              td= f.input :marketing_fee_vat,
+                          collection: [[0, 'VAT포함'], [1, 'VAT미포함']],
+                          label_method: :last,
+                          value_method: :first,
+                          as: :radio_buttons,
+                          label: false,
+                          item_wrapper_class: 'inline',
+                          checked: @admin_contract.marketing_fee_vat
+              td= f.label :marketing_equipment_fee_vat
+              td[colspan="2" ]= f.input :marketing_equipment_fee_vat,
+                                collection: [[0, 'VAT포함'], [1, 'VAT미포함']],
+                                label_method: :last,
+                                value_method: :first,
+                                as: :radio_buttons,
+                                label: false,
+                                item_wrapper_class: 'inline',
+                                checked: @admin_contract.marketing_equipment_fee_vat
 
 - content_for :javascript do
-  / == javascript_include_tag 'forms'
-
   javascript:
     $(function () {
       $("#form").steps({
         bodyTag: "fieldset",
+        labels: {
+          cancel: '취소',
+          next: '다음단계',
+          previous: '이전단계',
+          finish: '완료'
+        },
         onStepChanging: function (event, currentIndex, newIndex) {
           // Always allow going backward even if the current step contains invalid fields!
           if (currentIndex > newIndex) {
@@ -175,7 +358,11 @@
         onStepChanged: function (event, currentIndex, priorIndex) {
           // Suppress (skip) "Warning" step if the user is old enough.
           if (currentIndex === 2) {
+            $('.contract_corp').html($('#contract_hospital_user_attributes_partner_detail_attributes_corp_name').val());
+            $('.wizard-big.wizard > .content').css('height', '1000px');
             $(this).steps("next");
+          } else {
+            $('.wizard-big.wizard > .content').css('height', '640px');
           }
 
           // Suppress (skip) "Warning" step if the user is old enough and wants to the previous step.
@@ -198,6 +385,9 @@
 
           // Submit form input
           form.submit();
+        },
+        onCanceled: function (event) {
+          history.go(-1);
         }
       }).validate({
         errorPlacement: function (error, element) {
@@ -208,6 +398,16 @@
             equalTo: "#password"
           }
         }
+      });
+
+      $('.datepicker').datepicker({
+        format: 'yyyy-mm-dd',
+        todayBtn: "linked",
+        keyboardNavigation: false,
+        forceParse: false,
+        calendarWeeks: true,
+        language: 'ko',
+        autoclose: true
       });
 
     });

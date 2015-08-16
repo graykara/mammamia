@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150713030542) do
+ActiveRecord::Schema.define(version: 20150805071923) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20150713030542) do
     t.boolean  "equipment_fee"
     t.boolean  "equipment_vat"
     t.integer  "manage_by"
-    t.datetime "manage_start_at"
+    t.date     "manage_start_at"
     t.integer  "manage_period"
     t.boolean  "manage_vat"
     t.integer  "manage_pay_by"

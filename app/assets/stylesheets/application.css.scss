@@ -12,6 +12,7 @@
  *= require animate/animate.css
  *= require style
  *= require font-awesome
+ *= require bootstrap-datepicker3
  */
 
 table.table tbody tr td .form-group {
@@ -19,4 +20,13 @@ table.table tbody tr td .form-group {
 table.table tbody tr td, table.table tbody tr td label {
   vertical-align: middle;
   margin-bottom: 0px;
+}
+
+.wizard > .content > .body .form-inline input {
+  display: inline-block;
+  margin-left: 1em;
+}
+
+.wizard > .content > .body {
+  height: auto;
 }
