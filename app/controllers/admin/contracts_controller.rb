@@ -23,14 +23,34 @@ class Admin::ContractsController < ApplicationController
 
   # GET /admin/contracts/1/edit
   def edit
+    if @admin_contract.hospital_user.blank?
+      @admin_contract.build_hospital_user
+      @admin_contract.hospital_user.build_partner_detail
+    end
+    if @admin_contract.studio_users.blank?
+      @admin_contract.studio_users.build
+      @admin_contract.studio_users.last.build_partner_detail
+    end
   end
 
   # POST /admin/contracts
   # POST /admin/contracts.json
   def create
     # render text: admin_contract_params
-    @admin_contract = Contract.new(admin_contract_params)
 
+    assign_params = admin_contract_params.dup
+
+    if assign_params[:hospital_user_attributes][:name].blank?
+      assign_params.delete :hospital_user_attributes
+    end
+
+    if assign_params[:studio_users_attributes][:name].blank?
+      assign_params.delete :studio_users_attributes
+    end
+
+    admin_contract_params = assign_params
+
+    @admin_contract = Contract.new(admin_contract_params )
 
     respond_to do |format|
       if @admin_contract.save

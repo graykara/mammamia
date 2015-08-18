@@ -115,16 +115,16 @@
                   tr
                     td
                       input.i-checks name="input[]" type="checkbox"
-                    td= contract.created_at
+                    td= contract.created_at.strftime("%Y-%m-%d")
                     td 서울 강남구
-                    td= contract.hospital_user.partner_detail.corp_name
-                    td= contract.hospital_user.name
-                    td= contract.hospital_user.partner_detail.biz_name
-                    td= contract.hospital_user.partner_detail.biz_tel
+                    td= contract.try(:hospital_user) ? contract.hospital_user.partner_detail.corp_name : '-'
+                    td= contract.try(:hospital_user) ? contract.hospital_user.name : '-'
+                    td= contract.try(:hospital_user) ? contract.hospital_user.partner_detail.biz_name : '-'
+                    td= contract.try(:hospital_user) ? contract.hospital_user.partner_detail.biz_tel : '-'
                     td 0
                     td 카드, CD
                     td 2015.01.01
-                    td= contract.studio_users.count
+                    td= contract.try(:studio_users) ? contract.studio_users.count : '-'
                     td
                       = link_to '수정', edit_admin_contract_path(contract)
                         /i.fa.fa-check.text-navy

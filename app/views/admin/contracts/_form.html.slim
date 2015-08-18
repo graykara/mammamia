@@ -24,12 +24,12 @@
                         label= ' '
                   tr
                     td= hp.label :address_1, :class => 'control-label'
-                    td[colspan="2" ]= hp.input :address_1, :label => false, :class => 'form-control'
+                    td[colspan="2" ]= hp.input :address_1, :label => false, :class => 'form-control', :input_html => { :class => 'address_select' }
                     td= hp.label :chief_name, :class => 'control-label'
                     td[colspan="3" ]= hp.input :chief_name, :label => false, :class => 'form-control'
                   tr
                     td= hp.label :address_2, :class => 'control-label'
-                    td[colspan="2" ]= hp.input :address_2, :label => false, :class => 'form-control'
+                    td[colspan="2" ]= hp.input :address_2, :label => false, :class => 'form-control', :input_html => { :class => 'address_select' }
                     td= hp.label :fax, :class => 'control-label'
                     td[colspan="3" ]= hp.input :fax, :label => false, :class => 'form-control'
                   tr

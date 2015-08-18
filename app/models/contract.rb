@@ -4,4 +4,9 @@ class Contract < ActiveRecord::Base
 
   accepts_nested_attributes_for :hospital_user
   accepts_nested_attributes_for :studio_users
+
+  def self.search(query)
+    where('')
+  end
+
 end
