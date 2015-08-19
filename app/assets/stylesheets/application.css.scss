@@ -30,3 +30,13 @@ table.table tbody tr td, table.table tbody tr td label {
 .wizard > .content > .body {
   height: auto;
 }
+
+.no-padding {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+thead.ruler-sized tr th {
+  line-height: 0;
+  visibility: hidden;
+}

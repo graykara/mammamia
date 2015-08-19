@@ -46,6 +46,7 @@ ko:
         manage_period: 정산주기
         manage_vat: 금액
         manage_pay_by: 지급주체
+        marketing_user_id: 영업 담당자
         marketing_user_name: 영업 담당자
         marketing_fee_use: 운영수수료
         marketing_fee: 금액

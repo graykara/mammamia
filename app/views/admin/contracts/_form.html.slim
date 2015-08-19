@@ -8,20 +8,21 @@
           = h.simple_fields_for :partner_detail do |hp|
             .table-responsive
               table.table.table-bordered
+                thead.ruler-sized
+                  tr
+                    th.col-md-1
+                    th.col-md-1
+                    th.col-md-4
+                    th.col-md-1
+                    th.col-md-2
+                    th.col-md-1
+                    th.col-md-2
                 tbody
                   tr
-                    td= hp.label :corp_name, :class => 'control-label'
+                    td= hp.label :corp_name, :class => 'control-label', :label => '병원명'
                     td[colspan="2" ]= hp.input :corp_name, :label => false, :class => 'form-control'
                     td= hp.label :biz_reg_number, :class => 'control-label'
                     td[colspan="3" ]= hp.input :biz_reg_number, :label => false, :class => 'form-control'
-                  tr
-                    td= hp.label :nick_name, :class => 'control-label'
-                    td[colspan="2" ]= hp.input :nick_name, :label => false, :class => 'form-control'
-                    td= hp.label :event_published, :class => 'control-label'
-                    td[colspan="3" ]
-                      .checkbox.checkbox-success
-                        = hp.check_box :event_published
-                        label= ' '
                   tr
                     td= hp.label :zipcode, :class => 'control-label'
                     td[colspan="2"  data-toggle="modal" data-target="#addressModal1"]= hp.input :zipcode,    :label => false, :class => 'form-control'
@@ -71,6 +72,13 @@
                     td[colspan="2" ]= h.password_field :password, :label => false, :class => 'form-control'
                     td= h.label :password_confirmation, :class => 'control-label'
                     td[colspan="3" ]= h.password_field :password_confirmation, :label => false, :class => 'form-control'
+                  tr
+                    td= f.label :marketing_user_id, :class => 'control-label'
+                    td[colspan="6" ]= f.input :marketing_user_id, :label => false, :class => 'form-control',
+                                              :wrapper_html => { :class => 'form-group col-sm-3 no-padding' },
+                                              :input_html => { :class => 'm-b-none' },
+                                              as: :select,
+                                              collection: User.where(user_type: 4)
   h1 스튜디오정보
   fieldset
     h2 스튜디오정보
@@ -79,9 +87,18 @@
         = s.simple_fields_for :partner_detail do |sp|
           .table-responsive
             table.table.table-bordered
+              thead.ruler-sized
+                tr
+                  th.col-md-1
+                  th.col-md-1
+                  th.col-md-4
+                  th.col-md-1
+                  th.col-md-2
+                  th.col-md-1
+                  th.col-md-2
               tbody
                 tr
-                  td= sp.label :corp_name, :class => 'control-label'
+                  td= sp.label :corp_name, :class => 'control-label', :label => '스튜디오명'
                   td[colspan="2" ]= sp.input :corp_name, :label => false, :class => 'form-control'
                   td= sp.label :biz_reg_number, :class => 'control-label'
                   td[colspan="3" ]= sp.input :biz_reg_number, :label => false, :class => 'form-control'
@@ -148,6 +165,14 @@
     .row
       .table-responsive
         table.table.table-bordered
+          thead.ruler-sized
+            tr
+              th.col-md-1
+              th.col-md-1
+              th.col-md-2
+              th.col-md-1
+              th.col-md-1
+              th.col-md-2
           tbody
             tr
               td= f.label '병원명', :class => 'control-label'
