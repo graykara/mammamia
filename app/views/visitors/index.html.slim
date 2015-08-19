@@ -4,9 +4,40 @@ h3 Welcome
 /  = User.count
 /  | registered
 /
-/.form-group
-/  div.input-group.date
-/    input[type='text' class='datepicker']
+//.form-group
+//  div.input-group.date
+//    input[type='text' class='datepicker']
+/
+/
+/#addressModal1.modal.inmodal aria-hidden="true" role="dialog" tabindex="-1"
+/  .modal-dialog
+/    .modal-content.animated.flipInY
+/      .modal-header
+/        button.close data-dismiss="modal" type="button"
+/          span aria-hidden="true"  &times;
+/          span.sr-only Close
+/        h4.modal-title 주소검색
+/        small.font-bold
+/      .modal-body
+/        #postcodify
+/
+/      .modal-footer
+/        button.btn.btn-primary data-dismiss="modal" type="button"  닫기
+/
+/input#postcode5 name="" type="text" value="" data-toggle="modal" data-target="#myModal2"/
+/br
+/input#address name="" type="text" value="" data-toggle="modal" data-target="#myModal2"/
+/br
+/input#details name="" type="text" value="" /
+/
+/
+/button.btn.btn-primary data-target="#myModal2" data-toggle="modal" type="button"
+/  | FlipInY effect
+/
+//! jQuery와 Postcodify를 로딩한다
+/script src="//cdn.poesis.kr/post/search.min.js"
+/link href="//cdn.poesis.kr/post/search.css" media="all" rel="stylesheet" /
+/
 /
 /- content_for :javascript do
 /
@@ -21,5 +52,12 @@ h3 Welcome
 //        calendarWeeks: true,
 //        language: 'ko',
 //        autoclose: true
+//      });
+//
+//      $("#postcodify").postcodify({
+//        insertPostcode5: "#postcode5",
+//        insertAddress: "#address",
+//        insertDetails: "#details",
+//        hideOldAddresses: false
 //      });
 //    });

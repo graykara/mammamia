@@ -23,10 +23,13 @@
                         = hp.check_box :event_published
                         label= ' '
                   tr
+                    td= hp.label :zipcode, :class => 'control-label'
+                    td[colspan="2"  data-toggle="modal" data-target="#addressModal1"]= hp.input :zipcode,    :label => false, :class => 'form-control'
+                    td[rowspan= "2"]= hp.label :chief_name, :class => 'control-label'
+                    td[rowspan= "2" colspan="3" ]= hp.input :chief_name, :label => false, :class => 'form-control'
+                  tr
                     td= hp.label :address_1, :class => 'control-label'
-                    td[colspan="2" ]= hp.input :address_1, :label => false, :class => 'form-control', :input_html => { :class => 'address_select' }
-                    td= hp.label :chief_name, :class => 'control-label'
-                    td[colspan="3" ]= hp.input :chief_name, :label => false, :class => 'form-control'
+                    td[colspan="2" data-toggle="modal" data-target="#addressModal1"]= hp.input :address_1, :label => false, :class => 'form-control'
                   tr
                     td= hp.label :address_2, :class => 'control-label'
                     td[colspan="2" ]= hp.input :address_2, :label => false, :class => 'form-control', :input_html => { :class => 'address_select' }
@@ -91,10 +94,13 @@
                       = sp.check_box :event_published
                       label= ' '
                 tr
+                  td= sp.label :zipcode, :class => 'control-label'
+                  td[colspan="2" data-toggle="modal" data-target="#addressModal2"]= sp.input :zipcode, :label => false, :class => 'form-control'
+                  td[rowspan= "2"]= sp.label :chief_name, :class => 'control-label'
+                  td[rowspan= "2" colspan="3" ]= sp.input :chief_name, :label => false, :class => 'form-control'
+                tr
                   td= sp.label :address_1, :class => 'control-label'
-                  td[colspan="2" ]= sp.input :address_1, :label => false, :class => 'form-control'
-                  td= sp.label :chief_name, :class => 'control-label'
-                  td[colspan="3" ]= sp.input :chief_name, :label => false, :class => 'form-control'
+                  td[colspan="2" data-toggle="modal" data-target="#addressModal2"]= sp.input :address_1, :label => false, :class => 'form-control'
                 tr
                   td= sp.label :address_2, :class => 'control-label'
                   td[colspan="2" ]= sp.input :address_2, :label => false, :class => 'form-control'
@@ -318,7 +324,40 @@
                                 item_wrapper_class: 'inline',
                                 checked: @admin_contract.marketing_equipment_fee_vat
 
+  #addressModal1.modal.inmodal aria-hidden="true" role="dialog" tabindex="-1"
+    .modal-dialog
+      .modal-content.animated.flipInY
+        .modal-header
+          button.close data-dismiss="modal" type="button"
+            span aria-hidden="true"  &times;
+            span.sr-only Close
+          h4.modal-title 주소검색
+          small.font-bold
+        .modal-body
+          #postcodify1
+
+        .modal-footer
+          button.btn.btn-primary data-dismiss="modal" type="button"  닫기
+
+  #addressModal2.modal.inmodal aria-hidden="true" role="dialog" tabindex="-1"
+    .modal-dialog
+      .modal-content.animated.flipInY
+        .modal-header
+          button.close data-dismiss="modal" type="button"
+            span aria-hidden="true"  &times;
+            span.sr-only Close
+          h4.modal-title 주소검색
+          small.font-bold
+        .modal-body
+          #postcodify2
+
+        .modal-footer
+          button.btn.btn-primary data-dismiss="modal" type="button"  닫기
+
+
 - content_for :javascript do
+  script src="//cdn.poesis.kr/post/search.min.js"
+  link href="//cdn.poesis.kr/post/search.css" media="all" rel="stylesheet" /
   javascript:
     $(function () {
       $("#form").steps({
@@ -362,7 +401,7 @@
             $('.wizard-big.wizard > .content').css('height', '1000px');
             $(this).steps("next");
           } else {
-            $('.wizard-big.wizard > .content').css('height', '640px');
+            $('.wizard-big.wizard > .content').css('height', '680px');
           }
 
           // Suppress (skip) "Warning" step if the user is old enough and wants to the previous step.
@@ -408,6 +447,20 @@
         calendarWeeks: true,
         language: 'ko',
         autoclose: true
+      });
+
+      $("#postcodify1").postcodify({
+        insertPostcode5: "#contract_hospital_user_attributes_partner_detail_attributes_zipcode",
+        insertAddress: "#contract_hospital_user_attributes_partner_detail_attributes_address_1",
+        insertDetails: "#contract_hospital_user_attributes_partner_detail_attributes_address_2",
+        hideOldAddresses: true
+      });
+
+      $("#postcodify2").postcodify({
+        insertPostcode5: "#contract_studio_users_attributes_0_partner_detail_attributes_zipcode",
+        insertAddress: "#contract_studio_users_attributes_0_partner_detail_attributes_address_1",
+        insertDetails: "#contract_studio_users_attributes_0_partner_detail_attributes_address_2",
+        hideOldAddresses: true
       });
 
     });
