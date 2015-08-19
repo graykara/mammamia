@@ -4,7 +4,29 @@ class Admin::ContractsController < ApplicationController
   # GET /admin/contracts
   # GET /admin/contracts.json
   def index
-    @admin_contracts = Contract.all
+    if params[:commit] == '검색'
+      if !params[:search].blank?
+
+        whild_search = "%#{params[:search]}%"
+
+        if params[:category] == 'hospital'
+          @admin_contracts = Contract.joins(hospital_user: :partner_detail).where('partner_details.corp_name LIKE ?', whild_search)
+        end
+
+        if params[:category] == 'studio'
+          @admin_contracts = Contract.joins(studio_users: :partner_detail).where('partner_details.corp_name LIKE ?', whild_search)
+        end
+
+      elsif !(params[:start_date].blank? && params[:end_date].blank?)
+        @admin_contracts = Contract.where('manage_start_at > ? AND manage_start_at <= ?', params[:start_date], params[:end_date])
+      else
+        @admin_contracts = Contract.all
+      end
+
+    else
+      @admin_contracts = Contract.all
+    end
+
   end
 
   # GET /admin/contracts/1
