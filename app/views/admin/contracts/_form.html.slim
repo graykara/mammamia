@@ -22,7 +22,9 @@
                     td= hp.label :corp_name, :class => 'control-label', :label => '병원명'
                     td[colspan="2" ]= hp.input :corp_name, :label => false, :class => 'form-control'
                     td= hp.label :biz_reg_number, :class => 'control-label'
-                    td[colspan="3" ]= hp.input :biz_reg_number, :label => false, :class => 'form-control'
+                    td[colspan="3" ]= hp.input :biz_reg_number, :label => false, :class => 'form-control',
+                                               :required => true,
+                                               :input_html => { :'data-mask' => '999-99-9999'}
                   tr
                     td= hp.label :zipcode, :class => 'control-label'
                     td[colspan="2"  data-toggle="modal" data-target="#addressModal1"]= hp.input :zipcode,    :label => false, :class => 'form-control'
@@ -46,7 +48,7 @@
                     td= hp.input :biz_tel, :label => false, :class => 'form-control'
                   tr
                     td= hp.label :biz_email, :class => 'control-label'
-                    td= hp.input :biz_email, :label => false, :class => 'form-control'
+                    td= hp.input :biz_email, :label => false, :class => 'form-control', :input_html => { :class => 'required email' }
                     td= hp.label :biz_cell, :class => 'control-label'
                     td[colspan="3" ]= hp.input :biz_cell, :label => false, :class => 'form-control'
                   tr
@@ -59,14 +61,14 @@
                     td= hp.input :fin_tel, :label => false, :class => 'form-control'
                   tr
                     td= hp.label :fin_email, :class => 'control-label'
-                    td= hp.input :fin_email, :label => false, :class => 'form-control'
+                    td= hp.input :fin_email, :label => false, :class => 'form-control', :input_html => { :class => 'required email' }
                     td= hp.label :fin_cell, :class => 'control-label'
                     td[colspan="3" ]= hp.input :biz_cell, :label => false, :class => 'form-control'
                   tr
                     td= h.label :name, :class => 'control-label'
                     td[colspan="2" ]= h.input :name, :label => false, :class => 'form-control'
                     td= h.label :email, :class => 'control-label'
-                    td[colspan="3" ]= h.email_field :email, :label => false, :class => 'form-control'
+                    td[colspan="3" ]= h.email_field :email, :label => false, :class => 'form-control', :input_html => { :class => 'required email' }
                   tr
                     td= h.label :password, :class => 'control-label'
                     td[colspan="2" ]= h.password_field :password, :label => false, :class => 'form-control'
@@ -133,7 +135,7 @@
                   td= sp.input :biz_tel, :label => false, :class => 'form-control'
                 tr
                   td= sp.label :biz_email, :class => 'control-label'
-                  td= sp.input :biz_email, :label => false, :class => 'form-control'
+                  td= sp.input :biz_email, :label => false, :class => 'form-control', :input_html => { :class => 'required email' }
                   td= sp.label :biz_cell, :class => 'control-label'
                   td[colspan="3" ]= sp.input :biz_cell, :label => false, :class => 'form-control'
                 tr
@@ -146,14 +148,14 @@
                   td= sp.input :fin_tel, :label => false, :class => 'form-control'
                 tr
                   td= sp.label :fin_email, :class => 'control-label'
-                  td= sp.input :fin_email, :label => false, :class => 'form-control'
+                  td= sp.input :fin_email, :label => false, :class => 'form-control', :input_html => { :class => 'required email' }
                   td= sp.label :fin_cell, :class => 'control-label'
                   td[colspan="3" ]= sp.input :biz_cell, :label => false, :class => 'form-control'
                 tr
                   td= s.label :name, :class => 'control-label'
                   td[colspan="2" ]= s.input :name, :label => false, :class => 'form-control'
                   td= s.label :email, :class => 'control-label'
-                  td[colspan="3" ]= s.email_field :email, :label => false, :class => 'form-control'
+                  td[colspan="3" ]= s.email_field :email, :label => false, :class => 'form-control', :input_html => { :class => 'required email' }
                 tr
                   td= s.label :password, :class => 'control-label'
                   td[colspan="2" ]= s.password_field :password, :label => false, :class => 'form-control'
@@ -458,6 +460,42 @@
           element.before(error);
         },
         rules: {
+          'contract[hospital_user_attributes][partner_detail_attributes][biz_reg_number]': {
+            required: true
+          },
+
+          'contract[hospital_user_attributes][partner_detail_attributes][fax]': {
+            regex: /^(0(2|3[1-3]|4[1-4]|5[1-5]|6[1-4]|70))-(\d{3,4})-(\d{4})$/
+          },
+          'contract[hospital_user_attributes][partner_detail_attributes][biz_tel]': {
+            regex: /^(0(2|3[1-3]|4[1-4]|5[1-5]|6[1-4]|70))-(\d{3,4})-(\d{4})$/
+          },
+          'contract[hospital_user_attributes][partner_detail_attributes][biz_cell]': {
+              regex: /^(?:(010-\d{4})|(01[1|6|7|8|9]-\d{3,4}))-(\d{4})$/
+          },
+          'contract[hospital_user_attributes][partner_detail_attributes][fin_tel]': {
+            regex: /^(0(2|3[1-3]|4[1-4]|5[1-5]|6[1-4]|70))-(\d{3,4})-(\d{4})$/
+          },
+          'contract[hospital_user_attributes][partner_detail_attributes][fin_cell]': {
+            regex: /^(?:(010-\d{4})|(01[1|6|7|8|9]-\d{3,4}))-(\d{4})$/
+          },
+
+          'contract[studio_users_attributes][0][partner_detail_attributes][fax]': {
+            regex: /^(0(2|3[1-3]|4[1-4]|5[1-5]|6[1-4]|70))-(\d{3,4})-(\d{4})$/
+          },
+          'contract[studio_users_attributes][0][partner_detail_attributes][biz_tel]': {
+            regex: /^(0(2|3[1-3]|4[1-4]|5[1-5]|6[1-4]|70))-(\d{3,4})-(\d{4})$/
+          },
+          'contract[studio_users_attributes][0][partner_detail_attributes][biz_cell]': {
+            regex: /^(?:(010-\d{4})|(01[1|6|7|8|9]-\d{3,4}))-(\d{4})$/
+          },
+          'contract[studio_users_attributes][0][partner_detail_attributes][fin_tel]': {
+            regex: /^(0(2|3[1-3]|4[1-4]|5[1-5]|6[1-4]|70))-(\d{3,4})-(\d{4})$/
+          },
+          'contract[studio_users_attributes][0][partner_detail_attributes][fin_cell]': {
+            regex: /^(?:(010-\d{4})|(01[1|6|7|8|9]-\d{3,4}))-(\d{4})$/
+          },
+
           confirm: {
             equalTo: "#password"
           }
@@ -487,5 +525,10 @@
         insertDetails: "#contract_studio_users_attributes_0_partner_detail_attributes_address_2",
         hideOldAddresses: true
       });
+
+
+      $.validator.addMethod("regex", function (value, element, regexpr) {
+        return regexpr.test(value);
+      }, "형식에 맞는 번호를 입력하세요.");
 
     });
