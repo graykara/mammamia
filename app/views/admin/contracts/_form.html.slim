@@ -382,9 +382,11 @@
           button.btn.btn-primary data-dismiss="modal" type="button"  닫기
 
 
-- content_for :javascript do
+- content_for :head do
   script src="//cdn.poesis.kr/post/search.min.js"
   link href="//cdn.poesis.kr/post/search.css" media="all" rel="stylesheet" /
+
+- content_for :javascript do
   javascript:
     $(function () {
       $("#form").steps({

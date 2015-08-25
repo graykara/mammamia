@@ -25,16 +25,16 @@
                       td
                         = text_field_tag :search, params[:search], placeholder: '검색어 입력'
                         .i-checks.checkbox-inline
-                          = radio_button_tag :category, 'all'
+                          = radio_button_tag :category, 'all', params[:category] == 'all'
                           = label_tag :category_all, '전체'
                         .i-checks.checkbox-inline
-                          = radio_button_tag :category, 'hospital'
+                          = radio_button_tag :category, 'hospital', (params[:category] == 'hospital' || params[:category].blank?)
                           = label_tag :category_hospital, '병원'
                         .i-checks.checkbox-inline
-                          = radio_button_tag :category, 'studio'
+                          = radio_button_tag :category, 'studio', params[:category] == 'studio'
                           = label_tag :category_studio, '스튜디오'
                         .i-checks.checkbox-inline
-                          = radio_button_tag :category, 'reg'
+                          = radio_button_tag :category, 'reg', params[:category] == 'reg'
                           = label_tag :category_reg, '사업자등록번호'
                     tr
                       td 계약일자
@@ -48,14 +48,14 @@
                       td 정보등록
                       td
                         .i-checks.checkbox-inline
-                          = radio_button_tag :step, '1'
+                          = radio_button_tag :step, '1', params[:step] == '1'
                           = label_tag :step_1, '스튜디오정보 미등록'
+                        /.i-checks.checkbox-inline
+                        /  = radio_button_tag :step, '2'
+                        /  = label_tag :step_2, '계약정보 미등록'
                         .i-checks.checkbox-inline
-                          = radio_button_tag :step, '2'
-                          = label_tag :step_2, '계약정보 미등록'
-                        .i-checks.checkbox-inline
-                          = radio_button_tag :step, '3'
-                          = label_tag :step_3, '계약 완료'
+                          = radio_button_tag :step, '2', params[:step] == '2'
+                          = label_tag :step_2, '계약 완료'
               = submit_tag '검색', :class => 'btn btn-primary pull-right col-md-1'
 
 

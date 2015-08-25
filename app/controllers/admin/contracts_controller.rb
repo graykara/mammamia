@@ -1,24 +1,23 @@
 class Admin::ContractsController < ApplicationController
   before_action :set_admin_contract, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /admin/contracts
   # GET /admin/contracts.json
   def index
     if params[:commit] == '검색'
       if !params[:search].blank?
-
-        whild_search = "%#{params[:search]}%"
-
-        if params[:category] == 'hospital'
-          @admin_contracts = Contract.joins(hospital_user: :partner_detail).where('partner_details.corp_name LIKE ?', whild_search)
-        end
-
-        if params[:category] == 'studio'
-          @admin_contracts = Contract.joins(studio_users: :partner_detail).where('partner_details.corp_name LIKE ?', whild_search)
-        end
-
+        @admin_contracts = Contract.search_by_user_type(params[:search], params[:category])
       elsif !(params[:start_date].blank? && params[:end_date].blank?)
         @admin_contracts = Contract.where('manage_start_at > ? AND manage_start_at <= ?', params[:start_date], params[:end_date])
+      elsif !params[:step].blank?
+        case params[:step]
+          when "1"
+            @admin_contracts = Contract.with_hospital
+          when "2"
+            @admin_contracts = Contract.with_studio
+        end
+
       else
         @admin_contracts = Contract.all
       end
