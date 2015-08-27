@@ -26,8 +26,8 @@ class User < ActiveRecord::Base
       joins(:partner_detail).where('partner_details.biz_cell LIKE ? OR partner_details.biz_cell LIKE ?', "%#{query}%", "%#{query}%")
     elsif category == 'corp_name'
       joins(:partner_detail).where('partner_details.corp_name LIKE ?', "%#{query}%")
-    # elsif category == 'all'
-    #   joins(hospital_user: :partner_detail).where('partner_details.corp_name LIKE ?', "%#{query}%").joins(studio_users: :partner_detail).where('partner_details.corp_name LIKE ?', "%#{query}%")
+    elsif category == 'all'
+      joins(hospital_user: :partner_detail).where('partner_details.corp_name LIKE ?', "%#{query}%").joins(studio_users: :partner_detail).where('partner_details.corp_name LIKE ?', "%#{query}%")
     end
   end
 end

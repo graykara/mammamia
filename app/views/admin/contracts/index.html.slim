@@ -13,6 +13,9 @@
       .ibox.float-e-margins
         .ibox-title
           h5 검색
+          .ibox-tools
+            a.collapse-link
+              i.fa.fa-chevron-up
         .ibox-content
           #data_5.form-inline.row
             = form_tag(admin_contracts_path, method: :get, id: 'search-form') do
@@ -83,31 +86,31 @@
           .ibox-tools
             a.collapse-link
               i.fa.fa-chevron-up
-            a.dropdown-toggle data-toggle="dropdown" href="#"
-              i.fa.fa-wrench
-            ul.dropdown-menu.dropdown-user
-              li
-                a href="#"  Config option 1
-              li
-                a href="#"  Config option 2
-            a.close-link
-              i.fa.fa-times
+            /a.dropdown-toggle data-toggle="dropdown" href="#"
+            /  i.fa.fa-wrench
+            /ul.dropdown-menu.dropdown-user
+            /  li
+            /    a href="#"  Config option 1
+            /  li
+            /    a href="#"  Config option 2
+            /a.close-link
+            /  i.fa.fa-times
         .ibox-content
           .table-responsive
-            table.table.table-striped
+            table.table.table-striped.table-hover
               thead
                 tr
-                  th 계약일자
-                  th 지역
-                  th 병원
-                  th 병원아이디
-                  th 사업담당자명
+                  th.col-sm-1 계약일자
+                  th.col-sm-2 지역
+                  th.col-sm-1 병원
+                  th.col-sm-1 병원아이디
+                  th.col-sm-1 사업담당자명
                   th 사업담당자 전화번호
-                  th 장비
-                  th 서비스 형태
-                  th 최근업로드일자
-                  th 스튜디오명
-                  th 관리
+                  th.col-sm-1 장비
+                  th.col-sm-1 서비스 형태
+                  th.col-sm-1 최근업로드일자
+                  th.col-sm-1 스튜디오명
+                  th.col-sm-1 관리
               tbody
                 - @admin_contracts.each do |contract|
                   tr
