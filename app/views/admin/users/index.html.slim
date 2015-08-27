@@ -2,8 +2,7 @@
   .col-sm-4
     h2 어드민 회원목록
     ol.breadcrumb
-      li
-        a href=("#{url_for controller: 'users', action: 'index'}")  Home
+      li= link_to 'Home', root_path
       li.active
         strong 회원관리
   .col-sm-8
