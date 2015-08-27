@@ -99,6 +99,10 @@ class Admin::ContractsController < ApplicationController
       assign_params[:studio_users_attributes].delete :password_confirmation
     end
 
+    if assign_params[:studio_users_attributes][:name].blank? && assign_params[:studio_users_attributes][:email].blank?
+      assign_params.delete :studio_users_attributes
+    end
+
     respond_to do |format|
       if @admin_contract.update(assign_params)
         format.html { redirect_to admin_contracts_path, notice: 'Contract was successfully updated.' }

@@ -1,3 +1,8 @@
+- if @admin_contract.errors.any?
+  ul
+    - @admin_contract.errors.full_messages.each do |msg|
+      li= msg
+
 = simple_form_for(@admin_contract, url: (@admin_contract.new_record? ? admin_contracts_path : admin_contract_path(@admin_contract) ), :html => { id: 'form', class: 'wizard-big' } ) do |f|
   h1 병원정보
   fieldset
@@ -135,7 +140,7 @@
                   td= sp.input :biz_tel, :label => false, :class => 'form-control'
                 tr
                   td= sp.label :biz_email, :class => 'control-label'
-                  td= sp.input :biz_email, :label => false, :class => 'form-control', :input_html => { :class => 'required email' }
+                  td= sp.input :biz_email, :label => false, :class => 'form-control', :input_html => { :class => 'email' }
                   td= sp.label :biz_cell, :class => 'control-label'
                   td[colspan="3" ]= sp.input :biz_cell, :label => false, :class => 'form-control'
                 tr
@@ -148,14 +153,14 @@
                   td= sp.input :fin_tel, :label => false, :class => 'form-control'
                 tr
                   td= sp.label :fin_email, :class => 'control-label'
-                  td= sp.input :fin_email, :label => false, :class => 'form-control', :input_html => { :class => 'required email' }
+                  td= sp.input :fin_email, :label => false, :class => 'form-control', :input_html => { :class => 'email' }
                   td= sp.label :fin_cell, :class => 'control-label'
                   td[colspan="3" ]= sp.input :biz_cell, :label => false, :class => 'form-control'
                 tr
                   td= s.label :name, :class => 'control-label'
                   td[colspan="2" ]= s.input :name, :label => false, :class => 'form-control'
                   td= s.label :email, :class => 'control-label'
-                  td[colspan="3" ]= s.email_field :email, :label => false, :class => 'form-control', :input_html => { :class => 'required email' }
+                  td[colspan="3" ]= s.email_field :email, :label => false, :class => 'form-control', :input_html => { :class => 'email' }
                 tr
                   td= s.label :password, :class => 'control-label'
                   td[colspan="2" ]= s.password_field :password, :label => false, :class => 'form-control'
