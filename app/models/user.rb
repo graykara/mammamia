@@ -18,4 +18,16 @@ class User < ActiveRecord::Base
 
   validates :password, presence: true, length: {minimum: 6, maximum: 10}, on: :create
   validates :password, length: {minimum: 6, maximum: 10}, on: :update, allow_blank: true
+
+  def self.search_by_category(query, category)
+    if category == 'name'
+      where('name LIKE ?', "%#{query}%")
+    elsif category == 'cell'
+      joins(:partner_detail).where('partner_details.biz_cell LIKE ? OR partner_details.biz_cell LIKE ?', "%#{query}%", "%#{query}%")
+    elsif category == 'corp_name'
+      joins(:partner_detail).where('partner_details.corp_name LIKE ?', "%#{query}%")
+    # elsif category == 'all'
+    #   joins(hospital_user: :partner_detail).where('partner_details.corp_name LIKE ?', "%#{query}%").joins(studio_users: :partner_detail).where('partner_details.corp_name LIKE ?', "%#{query}%")
+    end
+  end
 end

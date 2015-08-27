@@ -4,7 +4,26 @@ class Admin::UsersController < ApplicationController
   # GET /admin/users
   # GET /admin/users.json
   def index
-    @admin_users = User.all
+    if params[:commit] == '검색'
+      if !params[:search].blank?
+        @admin_users = User.search_by_category(params[:search], params[:category])
+      elsif !(params[:start_date].blank? && params[:end_date].blank?)
+        @admin_users = User.where('created_at > ? AND created_at <= ?', params[:start_date], params[:end_date])
+      elsif !params[:step].blank?
+        # case params[:step]
+        #   when "1"
+        #     @admin_contracts = Contract.with_hospital
+        #   when "2"
+        #     @admin_contracts = Contract.with_studio
+        # end
+
+      else
+        @admin_users = User.all
+      end
+
+    else
+      @admin_users = User.all
+    end
   end
 
   # GET /admin/users/1

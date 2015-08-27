@@ -1,35 +1,62 @@
 .row.wrapper.border-bottom.white-bg.page-heading
-  .col-sm-4
+  .col-lg-9
     h2 어드민 회원목록
     ol.breadcrumb
       li= link_to 'Home', root_path
       li.active
         strong 회원관리
-  .col-sm-8
-    .title-action
-      a.btn.btn-primary href=""  This is action area
 
 .row.wrapper.wrapper-content.animated.fadeInRight
   .col-lg-12
     .ibox.float-e-margins
       .ibox-title
-        h5 searching
+        h5 검색
       .ibox-content
         #data_5.form-inline.row
-          .col-sm-6
-            label.font-noraml 계약일자
-            #datepicker.input-daterange.input-group
-              input.input-sm.form-control name="start" type="text" value="05/14/2014" /
-              span.input-group-addon 부터
-              input.input-sm.form-control name="end" type="text" value="05/22/2014" /
-              span.input-group-addon 까지
-          .col-sm-6
-            label.font-noraml 계약일자
-            #datepicker.input-daterange.input-group
-              input.input-sm.form-control name="start" type="text" value="05/14/2014" /
-              span.input-group-addon 부터
-              input.input-sm.form-control name="end" type="text" value="05/22/2014" /
-              span.input-group-addon 까지
+          = form_tag(admin_users_path, method: :get, id: 'search-form') do
+            .table-responsive
+              table.table.table-bordered
+                tbody
+                  tr
+                    td 검색어
+                    td
+                      = text_field_tag :search, params[:search], placeholder: '검색어 입력'
+                      .i-checks.checkbox-inline
+                        = radio_button_tag :category, 'all', params[:category] == 'all'
+                        = label_tag :category_all, '전체'
+                      .i-checks.checkbox-inline
+                        = radio_button_tag :category, 'name', (params[:category] == 'name' || params[:category].blank?)
+                        = label_tag :category_name, '이름'
+                      .i-checks.checkbox-inline
+                        = radio_button_tag :category, 'cell', params[:category] == 'cell'
+                        = label_tag :category_cell, '휴대폰번호'
+                      .i-checks.checkbox-inline
+                        = radio_button_tag :category, 'corp_name', params[:category] == 'corp_name'
+                        = label_tag :category_corp_name, '병원명'
+                  tr
+                    td 가입일자
+                    td
+                      #datepicker.input-daterange.input-group
+                        = text_field_tag :start_date, params[:start_date], class: 'input-sm form-control'
+                        span.input-group-addon 부터
+                        = text_field_tag :end_date, params[:end_date], class: 'input-sm form-control'
+                        span.input-group-addon 까지
+                  tr
+                    td 회원상태
+                    td
+                      .i-checks.checkbox-inline
+                        = radio_button_tag :step, '1', params[:step] == '1'
+                        = label_tag :step_1, '전체'
+                      .i-checks.checkbox-inline
+                        = radio_button_tag :step, '2', params[:step] == '2'
+                        = label_tag :step_2, '일반'
+                      .i-checks.checkbox-inline
+                        = radio_button_tag :step, '3', params[:step] == '3'
+                        = label_tag :step_3, '탈퇴'
+                      .i-checks.checkbox-inline
+                        = radio_button_tag :step, '4', params[:step] == '4'
+                        = label_tag :step_4, '특별회원'
+            = submit_tag '검색', :class => 'btn btn-primary pull-right col-md-1'
 
   .col-lg-12
     .ibox.float-e-margins
@@ -45,28 +72,29 @@
           table.table.table-striped
             thead
               tr
-                th
+                th 가입일
                 th 아이디
                 th 이름
                 th 권한
+                th 회원지역
+                th 휴대폰번호
                 th 로그인횟수
-                th 가입일
-                th 보기
-                th 수정
-                th 삭제
+                th 최근 접속일
+                th[rospan= '3'] 관리
             tbody
               - @admin_users.each do |admin_user|
                 tr
-                  td
-                    input.i-checks name="input[]" type="checkbox"
+                  td= admin_user.created_at.strftime("%Y-%m-%d")
+                  td= admin_user.email
                   td= admin_user.name
-                  td= admin_user.name
-                  td= admin_user.role
+                  td= get_user_type(admin_user.user_type)
+                  td= admin_user.try(:partner_detail) ? get_region(admin_user.partner_detail.address_1) : '-'
+                  td= admin_user.try(:partner_detail) ? admin_user.partner_detail.biz_cell : '-'
                   td= admin_user.sign_in_count
-                  td= admin_user.created_at
-                  td= link_to 'Show', admin_user_path(admin_user)
-                  td= link_to 'Edit', edit_admin_user_path(admin_user)
-                  td= link_to 'Destroy', admin_user_path(admin_user), data: {:confirm => 'Are you sure?'}, :method => :delete
+                  td= datetime_humanize(admin_user.current_sign_in_at)
+                  td= link_to '보기', admin_user_path(admin_user)
+                  td= link_to '수정', edit_admin_user_path(admin_user)
+                  /td= link_to 'Destroy', admin_user_path(admin_user), data: {:confirm => 'Are you sure?'}, :method => :delete
 
 
 = link_to 'New User', new_admin_user_path
@@ -82,10 +110,16 @@
     $(function () {
       $('#data_5 .input-daterange').datepicker({
         language: 'ko',
+        format: 'yyyy-mm-dd',
         keyboardNavigation: false,
         forceParse: false,
         autoclose: true
       });
 
       $('input[name="daterange"]').daterangepicker();
+
+      $('.i-checks').iCheck({
+        checkboxClass: 'icheckbox_square-green',
+        radioClass: 'iradio_square-green',
+      });
     });

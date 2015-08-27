@@ -11,4 +11,8 @@ module ApplicationHelper
     address_array = address.split(' ').to_a
     "#{address_array[0]} #{address_array[1]}"
   end
+
+  def datetime_humanize(arg)
+    (arg.nil?)? '-' : arg.strftime('%Y-%m-%d')
+  end
 end
