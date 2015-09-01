@@ -16,8 +16,8 @@ class User < ActiveRecord::Base
 
   accepts_nested_attributes_for :partner_detail
 
-  validates :password, presence: true, length: {minimum: 6, maximum: 10}, on: :create
-  validates :password, length: {minimum: 6, maximum: 10}, on: :update, allow_blank: true
+  validates :password, presence: true, length: {minimum: 6, maximum: 12}, on: :create
+  validates :password, length: {minimum: 6, maximum: 12}, on: :update, allow_blank: true
 
   def self.search_by_category(query, category)
     if category == 'name'

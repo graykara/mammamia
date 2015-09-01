@@ -393,6 +393,21 @@
 
 - content_for :javascript do
   javascript:
+    $(document).ready(function() {
+      $("#postcodify1").postcodify({
+        insertPostcode5: "#contract_hospital_user_attributes_partner_detail_attributes_zipcode",
+        insertAddress: "#contract_hospital_user_attributes_partner_detail_attributes_address_1",
+        insertDetails: "#contract_hospital_user_attributes_partner_detail_attributes_address_2",
+        hideOldAddresses: true
+      });
+
+      $("#postcodify2").postcodify({
+        insertPostcode5: "#contract_studio_users_attributes_0_partner_detail_attributes_zipcode",
+        insertAddress: "#contract_studio_users_attributes_0_partner_detail_attributes_address_1",
+        insertDetails: "#contract_studio_users_attributes_0_partner_detail_attributes_address_2",
+        hideOldAddresses: true
+      });
+    });
     $(function () {
       $("#form").steps({
         bodyTag: "fieldset",
@@ -482,21 +497,6 @@
         language: 'ko',
         autoclose: true
       });
-
-      $("#postcodify1").postcodify({
-        insertPostcode5: "#contract_hospital_user_attributes_partner_detail_attributes_zipcode",
-        insertAddress: "#contract_hospital_user_attributes_partner_detail_attributes_address_1",
-        insertDetails: "#contract_hospital_user_attributes_partner_detail_attributes_address_2",
-        hideOldAddresses: true
-      });
-
-      $("#postcodify2").postcodify({
-        insertPostcode5: "#contract_studio_users_attributes_0_partner_detail_attributes_zipcode",
-        insertAddress: "#contract_studio_users_attributes_0_partner_detail_attributes_address_1",
-        insertDetails: "#contract_studio_users_attributes_0_partner_detail_attributes_address_2",
-        hideOldAddresses: true
-      });
-
 
       $.validator.addMethod("regex", function (value, element, regexpr) {
         return regexpr.test(value);
