@@ -393,7 +393,19 @@
 
 - content_for :javascript do
   javascript:
+    function sleep(milliseconds) {
+      var start, i;
+      start = new Date().getTime();
+      for (i = 0; i < 1e7; i++) {
+        if ((new Date().getTime() - start) > milliseconds) {
+          break;
+        }
+      }
+    }
+
     $(document).ready(function() {
+      sleep(300);
+
       $("#postcodify1").postcodify({
         insertPostcode5: "#contract_hospital_user_attributes_partner_detail_attributes_zipcode",
         insertAddress: "#contract_hospital_user_attributes_partner_detail_attributes_address_1",
