@@ -86,6 +86,10 @@
                                               :input_html => { :class => 'm-b-none' },
                                               as: :select,
                                               collection: User.where(user_type: 4)
+                  tr
+                    td= f.label :note, :class => 'control-label'
+                    td[colspan="6" ]= f.input :note, :label => false, :class => 'form-control',
+                                              :input_html => { :rows => 3 }
   h1 스튜디오정보
   fieldset
     h2 스튜디오정보
@@ -455,7 +459,7 @@
             $('.wizard-big.wizard > .content').css('height', '1000px');
             $(this).steps("next");
           } else {
-            $('.wizard-big.wizard > .content').css('height', '680px');
+            $('.wizard-big.wizard > .content').css('height', '740px');
           }
 
           // Suppress (skip) "Warning" step if the user is old enough and wants to the previous step.
