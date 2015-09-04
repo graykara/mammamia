@@ -32,12 +32,12 @@
                                                :input_html => { :'data-mask' => '999-99-9999'}
                   tr
                     td= hp.label :zipcode, :class => 'control-label'
-                    td[colspan="2"  data-toggle="modal" data-target="#addressModal1"]= hp.input :zipcode,    :label => false, :class => 'form-control'
+                    td[colspan="2" onclick="execDaumPostcode(1)"]= hp.input :zipcode,    :label => false, :class => 'form-control'
                     td[rowspan= "2"]= hp.label :chief_name, :class => 'control-label'
                     td[rowspan= "2" colspan="3" ]= hp.input :chief_name, :label => false, :class => 'form-control'
                   tr
                     td= hp.label :address_1, :class => 'control-label'
-                    td[colspan="2" data-toggle="modal" data-target="#addressModal1"]= hp.input :address_1, :label => false, :class => 'form-control'
+                    td[colspan="2" onclick="execDaumPostcode(1)"]= hp.input :address_1, :label => false, :class => 'form-control'
                   tr
                     td= hp.label :address_2, :class => 'control-label'
                     td[colspan="2" ]= hp.input :address_2, :label => false, :class => 'form-control', :input_html => { :class => 'address_select' }
@@ -119,12 +119,12 @@
                       label= ' '
                 tr
                   td= sp.label :zipcode, :class => 'control-label'
-                  td[colspan="2" data-toggle="modal" data-target="#addressModal2"]= sp.input :zipcode, :label => false, :class => 'form-control'
+                  td[colspan="2" onclick="execDaumPostcode(2)"]= sp.input :zipcode, :label => false, :class => 'form-control'
                   td[rowspan= "2"]= sp.label :chief_name, :class => 'control-label'
                   td[rowspan= "2" colspan="3" ]= sp.input :chief_name, :label => false, :class => 'form-control'
                 tr
                   td= sp.label :address_1, :class => 'control-label'
-                  td[colspan="2" data-toggle="modal" data-target="#addressModal2"]= sp.input :address_1, :label => false, :class => 'form-control'
+                  td[colspan="2" onclick="execDaumPostcode(2)"]= sp.input :address_1, :label => false, :class => 'form-control'
                 tr
                   td= sp.label :address_2, :class => 'control-label'
                   td[colspan="2" ]= sp.input :address_2, :label => false, :class => 'form-control'
@@ -356,70 +356,63 @@
                                 item_wrapper_class: 'inline',
                                 checked: @admin_contract.marketing_equipment_fee_vat
 
-  #addressModal1.modal.inmodal aria-hidden="true" role="dialog" tabindex="-1"
-    .modal-dialog
-      .modal-content.animated.flipInY
-        .modal-header
-          button.close data-dismiss="modal" type="button"
-            span aria-hidden="true"  &times;
-            span.sr-only Close
-          h4.modal-title 주소검색
-          small.font-bold
-        .modal-body
-          #postcodify1
-
-        .modal-footer
-          button.btn.btn-primary data-dismiss="modal" type="button"  닫기
-
-  #addressModal2.modal.inmodal aria-hidden="true" role="dialog" tabindex="-1"
-    .modal-dialog
-      .modal-content.animated.flipInY
-        .modal-header
-          button.close data-dismiss="modal" type="button"
-            span aria-hidden="true"  &times;
-            span.sr-only Close
-          h4.modal-title 주소검색
-          small.font-bold
-        .modal-body
-          #postcodify2
-
-        .modal-footer
-          button.btn.btn-primary data-dismiss="modal" type="button"  닫기
-
-
 - content_for :head do
-  script src="/post/search.min.js"
-  link href="/post/search.css" media="all" rel="stylesheet" /
+  script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"
 
 - content_for :javascript do
   javascript:
-    function sleep(milliseconds) {
-      var start, i;
-      start = new Date().getTime();
-      for (i = 0; i < 1e7; i++) {
-        if ((new Date().getTime() - start) > milliseconds) {
-          break;
+
+    function execDaumPostcode(arg) {
+      new daum.Postcode({
+        oncomplete: function (data) {
+          // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+          // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+          // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+          var fullAddr = ''; // 최종 주소 변수
+          var extraAddr = ''; // 조합형 주소 변수
+
+          // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+          if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+            fullAddr = data.roadAddress;
+
+          } else { // 사용자가 지번 주소를 선택했을 경우(J)
+            fullAddr = data.jibunAddress;
+          }
+
+          // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
+          if (data.userSelectedType === 'R') {
+            //법정동명이 있을 경우 추가한다.
+            if (data.bname !== '') {
+              extraAddr += data.bname;
+            }
+            // 건물명이 있을 경우 추가한다.
+            if (data.buildingName !== '') {
+              extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+            }
+            // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+            fullAddr += (extraAddr !== '' ? ' (' + extraAddr + ')' : '');
+          }
+
+          // 우편번호와 주소 정보를 해당 필드에 넣는다.
+          if (arg === 1) {
+            $('#contract_hospital_user_attributes_partner_detail_attributes_zipcode').val(data.zonecode);  //5자리 새우편번호 사용
+            $('#contract_hospital_user_attributes_partner_detail_attributes_address_1').val(fullAddr);
+
+            // 커서를 상세주소 필드로 이동한다.
+            $('#contract_hospital_user_attributes_partner_detail_attributes_address_2').focus();
+          } else {
+            $('#contract_studio_users_attributes_0_partner_detail_attributes_zipcode').val(data.zonecode); //5자리 새우편번호 사용
+            $('#contract_studio_users_attributes_0_partner_detail_attributes_address_1').val(fullAddr);
+
+            // 커서를 상세주소 필드로 이동한다.
+            $('#contract_studio_users_attributes_0_partner_detail_attributes_address_2').focus();
+          }
+
         }
-      }
+      }).open();
     }
 
-    $(document).ready(function() {
-      sleep(300);
-
-      $("#postcodify1").postcodify({
-        insertPostcode5: "#contract_hospital_user_attributes_partner_detail_attributes_zipcode",
-        insertAddress: "#contract_hospital_user_attributes_partner_detail_attributes_address_1",
-        insertDetails: "#contract_hospital_user_attributes_partner_detail_attributes_address_2",
-        hideOldAddresses: true
-      });
-
-      $("#postcodify2").postcodify({
-        insertPostcode5: "#contract_studio_users_attributes_0_partner_detail_attributes_zipcode",
-        insertAddress: "#contract_studio_users_attributes_0_partner_detail_attributes_address_1",
-        insertDetails: "#contract_studio_users_attributes_0_partner_detail_attributes_address_2",
-        hideOldAddresses: true
-      });
-    });
     $(function () {
       $("#form").steps({
         bodyTag: "fieldset",
