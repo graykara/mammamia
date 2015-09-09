@@ -144,7 +144,7 @@ class Admin::ContractsController < ApplicationController
 
       case get_region_prefix(arg)
         when "서울"
-          code = "02"
+          code = "002"
         when "경기"
           code = "031"
         when "인천"
