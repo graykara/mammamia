@@ -71,6 +71,10 @@ class Admin::ContractsController < ApplicationController
 
     admin_contract_params = assign_params
 
+    if admin_contract_params[:hospital_user_attributes][:address_1]
+      admin_contract_params[:hospital_code] = get_hospital_code(admin_contract_params[:hospital_user_attributes][:address_1])
+    end
+
     @admin_contract = Contract.new(admin_contract_params )
 
     respond_to do |format|
@@ -103,6 +107,10 @@ class Admin::ContractsController < ApplicationController
       assign_params.delete :studio_users_attributes
     end
 
+    if assign_params[:hospital_code].blank?
+      assign_params[:hospital_code] = get_hospital_code(admin_contract_params[:hospital_user_attributes][:partner_detail_attributes][:address_1])
+    end
+
     respond_to do |format|
       if @admin_contract.update(assign_params)
         format.html { redirect_to admin_contracts_path, notice: 'Contract was successfully updated.' }
@@ -125,6 +133,61 @@ class Admin::ContractsController < ApplicationController
   end
 
   private
+    def get_region_prefix(address)
+      address_array = address.split(' ').to_a
+      "#{address_array[0]}"
+    end
+
+    def get_hospital_code(arg)
+
+      code = "00"
+
+      case get_region_prefix(arg)
+        when "서울특별시"
+          code = "02"
+        when "경기도"
+          code = "031"
+        when "인천광역시"
+          code = "032"
+        when "강원도"
+          code = "033"
+        when "충청남도"
+          code = "041"
+        when "대전광역시"
+          code = "042"
+        when "충청북도"
+          code = "043"
+        when "세종특별자치시"
+          code = "044"
+        when "부산광역시"
+          code = "051"
+        when "울산광역시"
+          code = "052"
+        when "대구광역시"
+          code = "053"
+        when "경상북도"
+          code = "054"
+        when "경상남도"
+          code = "055"
+        when "전라남도"
+          code = "061"
+        when "광주광역시"
+          code = "062"
+        when "전라북도"
+          code = "063"
+        when "제주도"
+          code = "064"
+      end
+
+      seq = Contract.where("hospital_code LIKE :code", code: "#{code}%").count + 1
+
+      if seq < 10
+        seq = "0" + seq.to_s
+      end
+
+      code + seq
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_admin_contract
       @admin_contract = Contract.find(params[:id])
@@ -142,7 +205,7 @@ class Admin::ContractsController < ApplicationController
                                        :manage_by, :manage_start_at, :manage_period, :manage_vat, :manage_pay_by,
                                        :marketing_company_id, :marketing_user_name, :marketing_fee_use, :marketing_fee,
                                        :marketing_fee_ratio, :marketing_fee_vat, :marketing_equipment_fee_free, :marketing_equipment_fee,
-                                       :marketing_equipment_fee_ratio, :marketing_equipment_fee_vat,
+                                       :marketing_equipment_fee_ratio, :marketing_equipment_fee_vat, :note,
                                        hospital_user_attributes: [:id, :name, :email, :password, :password_confirmation,
                                                                   partner_detail_attributes: PartnerDetail.attribute_names.collect { |attr| attr.to_sym }
                                        ],
