@@ -14,3 +14,5 @@
 //= require slimscroll/jquery.slimscroll.min.js
 //= require bootstrap-datepicker/core
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.kr.js
+//= require jquery.purr
+//= require best_in_place

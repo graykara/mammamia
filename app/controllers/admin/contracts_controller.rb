@@ -40,6 +40,8 @@ class Admin::ContractsController < ApplicationController
     @admin_contract.hospital_user.build_partner_detail
     @admin_contract.studio_users.build
     @admin_contract.studio_users.last.build_partner_detail
+
+    gon.daum = true
   end
 
   # GET /admin/contracts/1/edit
@@ -52,6 +54,8 @@ class Admin::ContractsController < ApplicationController
       @admin_contract.studio_users.build
       @admin_contract.studio_users.last.build_partner_detail
     end
+
+    gon.daum = true
   end
 
   # POST /admin/contracts

@@ -20,22 +20,22 @@ nav.navbar-default.navbar-static-side role="navigation"
           span.nav-label 계약관리
           span.fa.arrow
           ul class=("nav nav-second-level")
-            li[class=is_active_controller('index')]           = link_to "계약관리", "/admin/contracts"
-            li[class=is_active_controller('new')]             = link_to "신규등록", "/admin/contracts/new"
+            li[class=(is_active_controller('admin/contracts') && is_active_action('index'))]           = link_to "계약관리", "/admin/contracts"
+            li[class=(is_active_controller('admin/contracts') && is_active_action('new'))]             = link_to "신규등록", "/admin/contracts/new"
             /li[class=is_active_controller('index_hospital')]  = link_to "병원조회", "/admin/contracts"
             /li[class=is_active_controller('index_studio')]    = link_to "스튜디오조회", "/admin/contracts"
             /li[class=is_active_controller('index_')] = link_to "영업대행사계약", "/"
             /li[class=is_active_controller('index_money')]     = link_to "정산정보", "/admin/contracts"
 
-      li[class=is_active_controller('admin/devices')]
+      li[class=(is_active_controller('admin/devices')||is_active_controller('admin/device_wares'))]
         = link_to "#" do
           i.fa.fa-gears
           span.nav-label 장비관리
           span.fa.arrow
           ul class=("nav nav-second-level")
-            li[class=is_active_controller('index')]   = link_to "장비관리", "/admin/devices"
-            li[class=is_active_controller('new')]     = link_to "장비등록", "/"
-            li[class=is_active_controller('history')] = link_to "장비히스토리", "/"
+            li[class=(is_active_controller('admin/devices') && is_active_action('index'))]   = link_to "장비관리", "/admin/devices"
+            li[class=(is_active_controller('admin/devices') && is_active_controller('new'))]     = link_to "장비등록", "/admin/devices/new"
+            li[class=(is_active_controller('admin/device_wares') && is_active_action('index'))] = link_to "장비히스토리", "/admin/device_wares"
       /li[class=is_active_controller('admin/stastics')]
       /  = link_to "#" do
       /    i.fa.fa-bar-chart
@@ -46,19 +46,19 @@ nav.navbar-default.navbar-static-side role="navigation"
           span.nav-label 회원관리
           span.fa.arrow
           ul class=("nav nav-second-level")
-            /li[class=is_active_controller('index')] = link_to "회원정보", "/"
-            /li[class=is_active_controller('index')] = link_to "특별회원", "/"
-            li[class=is_active_controller('index')] = link_to "어드민 회원관리",   admin_users_path
-            li[class=is_active_controller('new')]   = link_to "어드민 추가/관리",  new_admin_user_path
+            /li[class=is_active_action('index')] = link_to "회원정보", "/"
+            /li[class=is_active_action('index')] = link_to "특별회원", "/"
+            li[class=(is_active_controller('admin/users') && is_active_action('index'))] = link_to "어드민 회원관리",   admin_users_path
+            li[class=(is_active_controller('admin/users') && is_active_action('new'))]   = link_to "어드민 추가/관리",  new_admin_user_path
       /li[class=is_active_controller('admin/consultations')]
       /  = link_to "#" do
       /    i.fa.fa-comment
       /    span.nav-label 상담관리
       /    span.fa.arrow
       /    ul class=("nav nav-second-level")
-      /      li[class=is_active_controller('index')] = link_to "병원상담", "/"
-      /      li[class=is_active_controller('index')] = link_to "스튜디오상담", "/"
-      /      li[class=is_active_controller('index')] = link_to "회원상담", "/"
+      /      li[class=is_active_action('index')] = link_to "병원상담", "/"
+      /      li[class=is_active_action('index')] = link_to "스튜디오상담", "/"
+      /      li[class=is_active_action('index')] = link_to "회원상담", "/"
       /li[class=is_active_controller('admin/sites')]
       /  = link_to "#" do
       /    i.fa.fa-sitemap

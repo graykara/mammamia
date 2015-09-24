@@ -57,6 +57,22 @@ ko:
         marketing_equipment_fee_ratio: 요율
         marketing_equipment_fee_vat: VAT
         note: 비고
+      device_ware:
+        version: 관리번호
+        name: 품명
+        spec: 규격
+        serial: 모델시리얼
+        grade: 등급
+        expired_at: 유효기간
+        purchased_at: 구입년도
+        firmware: F/W
+        check_period: 점검주기
+        note: 비고
+        os: OS
+        application: 응용프로그램
+        acquired_at: 취득일자
+        distributed_at: 배포일자
+        tag: 분류
 
         date:
           order:

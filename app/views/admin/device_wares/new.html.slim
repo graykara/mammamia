@@ -1,0 +1,19 @@
+.row.wrapper.border-bottom.white-bg.page-heading
+  .col-lg-9
+    h2 계약관리
+    ol.breadcrumb
+      li= link_to 'Home', root_path
+      li= link_to '장비 히스토리 관리', admin_device_wares_path(category: params[:category])
+      li.active
+        strong 신규등록
+
+.wrapper.wrapper-content.animated.fadeInRight
+  .row
+    .col-lg-12
+      .ibox
+        .ibox-title
+
+        .ibox-content
+          h2 신규등록
+          p 장비 히스토리 신규등록
+          == render 'form'

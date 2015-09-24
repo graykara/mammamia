@@ -1,0 +1,77 @@
+.row.wrapper.border-bottom.white-bg.page-heading
+  .col-lg-9
+    h2 장비관리
+    ol.breadcrumb
+      li= link_to 'Home', root_path
+      li.active
+        strong 장비히스토리
+
+  .row
+    .col-lg-12
+      .ibox.float-e-margins
+        .ibox-title
+          h5 장비 히스토리 목록
+          .ibox-tools
+            a.collapse-link
+              i.fa.fa-chevron-up
+        .ibox-content
+          p
+            = link_to 'H/W', admin_device_wares_path(:category => 'hw'), :class => (params[:category] != 'sw' && params[:category] != 'fw') ? 'active btn btn-outline btn-info m-r-5px' : 'btn btn-outline btn-info m-r-5px'
+            = link_to 'S/W', admin_device_wares_path(:category => 'sw'), :class => (params[:category] == 'sw') ? 'active btn btn-outline btn-info m-r-5px' : 'btn btn-outline btn-info m-r-5px'
+            = link_to 'F/W', admin_device_wares_path(:category => 'fw'), :class => (params[:category] == 'fw') ? 'active btn btn-outline btn-info m-r-5px' : 'btn btn-outline btn-info m-r-5px'
+            = link_to '등록', new_admin_device_ware_path(:category => params[:category]), :class => 'pull-right btn btn-primary'
+
+          .table-responsive
+            table.table.table-striped.table-hover
+              thead
+                tr
+                  th.col-sm-1 관리번호
+                  th.col-sm-1 품명
+                  th.col-sm-1 규격
+                  th.col-sm-1 시리얼
+                  th.col-sm-1 등급
+                  th.col-sm-1 유효기간
+                  th.col-sm-1 구입년도
+                  th.col-sm-1 F/W
+                  th.col-sm-1 점검주기
+                  th 비고
+                  th.col-sm-1 관리
+              tbody
+                - @admin_device_wares.each do |device_ware|
+                  tr
+                    td= device_ware.version
+                    td= device_ware.name
+                    td= device_ware.spec
+                    td= device_ware.serial
+                    td= get_grade(device_ware.grade)
+                    td= device_ware.expired_at
+                    td= device_ware.purchased_at
+                    td= device_ware.firmware
+                    td= device_ware.check_period
+                    td= device_ware.note
+                    td= link_to '수정', edit_admin_device_ware_path(device_ware, category: params[:category]), :class => 'btn btn-sm btn-primary'
+
+
+- content_for :head do
+  = stylesheet_link_tag 'pages'
+
+- content_for :javascript do
+  = javascript_include_tag 'pages'
+
+  javascript:
+    $(function () {
+      $('#data_5 .input-daterange').datepicker({
+        language: 'ko',
+        format: 'yyyy-mm-dd',
+        keyboardNavigation: false,
+        forceParse: false,
+        autoclose: true
+      });
+
+      $('input[name="daterange"]').daterangepicker();
+
+      $('.i-checks').iCheck({
+        checkboxClass: 'icheckbox_square-green',
+        radioClass: 'iradio_square-green',
+      });
+    });

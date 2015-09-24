@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     resources :users
     resources :contracts
     resources :devices
+    resources :device_wares
   end
 
 end

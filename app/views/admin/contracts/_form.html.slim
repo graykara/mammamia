@@ -249,32 +249,32 @@
                 = f.input :equipment_fee, as: 'string', inline_label: true
             tr
               td[colspan="2" ]= f.input :setup_vat,
-                                collection: [[0, 'VAT포함'], [1, 'VAT미포함']],
-                                label_method: :last,
-                                value_method: :first,
-                                as: :radio_buttons,
-                                label: false,
-                                item_wrapper_class: 'inline',
-                                checked: @admin_contract.setup_vat
+                                        collection: [[0, 'VAT포함'], [1, 'VAT미포함']],
+                                        label_method: :last,
+                                        value_method: :first,
+                                        as: :radio_buttons,
+                                        label: false,
+                                        item_wrapper_class: 'inline',
+                                        checked: @admin_contract.setup_vat
               td[colspan="2" ]= f.input :equipment_vat,
-                                collection: [[0, 'VAT포함'], [1, 'VAT미포함']],
-                                label_method: :last,
-                                value_method: :first,
-                                as: :radio_buttons,
-                                label: false,
-                                item_wrapper_class: 'inline',
-                                checked: @admin_contract.equipment_vat
+                                        collection: [[0, 'VAT포함'], [1, 'VAT미포함']],
+                                        label_method: :last,
+                                        value_method: :first,
+                                        as: :radio_buttons,
+                                        label: false,
+                                        item_wrapper_class: 'inline',
+                                        checked: @admin_contract.equipment_vat
             tr
               td[rowspan="3" ]= f.label '운영비', :class => 'control-label'
               td= f.label :manage_by
               td[colspan="4" ]= f.input :manage_by,
-                          collection: [[0, '병원'], [1, '스튜디오']],
-                          label: false,
-                          label_method: :last,
-                          value_method: :first,
-                          as: :radio_buttons,
-                          item_wrapper_class: 'inline',
-                          checked: @admin_contract.manage_by
+                                        collection: [[0, '병원'], [1, '스튜디오']],
+                                        label: false,
+                                        label_method: :last,
+                                        value_method: :first,
+                                        as: :radio_buttons,
+                                        item_wrapper_class: 'inline',
+                                        checked: @admin_contract.manage_by
             tr
               td= f.label '발효일', :class => 'control-label'
               td#manage_start_at
@@ -352,19 +352,33 @@
                           checked: @admin_contract.marketing_fee_vat
               td= f.label :marketing_equipment_fee_vat
               td[colspan="2" ]= f.input :marketing_equipment_fee_vat,
-                                collection: [[0, 'VAT포함'], [1, 'VAT미포함']],
-                                label_method: :last,
-                                value_method: :first,
-                                as: :radio_buttons,
-                                label: false,
-                                item_wrapper_class: 'inline',
-                                checked: @admin_contract.marketing_equipment_fee_vat
+                                        collection: [[0, 'VAT포함'], [1, 'VAT미포함']],
+                                        label_method: :last,
+                                        value_method: :first,
+                                        as: :radio_buttons,
+                                        label: false,
+                                        item_wrapper_class: 'inline',
+                                        checked: @admin_contract.marketing_equipment_fee_vat
 
 - content_for :head do
   script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"
 
 - content_for :javascript do
   javascript:
+    function sleep(milliseconds) {
+      var start, i;
+      start = new Date().getTime();
+      for (i = 0; i < 1e7; i++) {
+        if ((new Date().getTime() - start) > milliseconds) {
+          break;
+        }
+      }
+    }
+
+    sleep(100);
+
+    var width = 500;
+    var height = 600;
 
     function execDaumPostcode(arg) {
       new daum.Postcode({
@@ -414,7 +428,11 @@
           }
 
         }
-      }).open();
+      }).open({
+                left: (window.screen.width / 2) - (width / 2),
+                top:  (window.screen.height / 2) - (height / 2),
+                popupName: 'daumPostCode'
+              });
     }
 
     $(function () {
@@ -515,7 +533,7 @@
             $element.tooltip("destroy") // Destroy any pre-existing tooltip so we can repopulate with new tooltip content
                     .data("title", error.message)
                     .addClass("error")
-                    .tooltip(); // Create a new tooltip based on the error messsage we just set in the title
+                    .tooltip(); // Create a new tooltip based on the error message we just set in the title
           });
         },
       });

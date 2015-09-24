@@ -1,0 +1,5 @@
+ko:
+  errors:
+    messages:
+      blank: "필드를 채워주세요."
+      too_short: 너무 짧습니다.
