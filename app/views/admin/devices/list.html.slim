@@ -27,7 +27,7 @@
                   th.col-sm-1 인증
                   th.col-sm-1 상태
                   th 비고
-                  th.col-sm-1 관리
+                  /th.col-sm-1 관리
               tbody
 
                 = simple_form_for(:admin_device, url: device_lists_update_path, :html => {id: 'form', class: '', method: :put}) do |f|
@@ -35,16 +35,20 @@
                     = f.simple_fields_for '', device do |d|
                       tr
                         td= d.input :setup_at, :label => false, as: :string, :input_html => {:class => 'datepicker input-group date'}
-                        td= d.input :grade, :label => false, :input_html => {:class => 'input-group'}
+                        td= d.input :grade, :label => false, :input_html => {:class => 'input-group'},
+                                    as: :select,
+                                    collection: [['A', 1], ['B', 2], ['C', 3]]
                         td= d.input :after_service, :label => false, :input_html => {:class => 'input-group'}
                         td= d.input :code, :label => false, :input_html => {:class => 'input-group'}
                         td= d.input :location, :label => false, :input_html => {:class => 'input-group'}
-                        td= d.input :validated, :label => false, :input_html => {:class => 'input-group'}
-                        td= d.input :status, as: :string, :label => false, :input_html => {:class => 'input-group'}
+                        td= d.input :validated, :label => false, :input_html => {:class => 'input-group'},
+                                    as: :select,
+                                    collection: [['인증', 0], ['미인증', 1]]
+                        td= d.input :status, as: :boolean, :label => false, :input_html => {:class => 'js-switch input-group'}
                         td= d.input :note, :label => false, :input_html => {:class => 'input-group'}
-                        td
+                        /td
                   tr
-                    td[colspan="9"]= f.submit
+                    td[colspan="9"]= f.submit "변경사항 등록", :class => 'btn btn-primary'
 
 
 - content_for :head do
@@ -55,6 +59,17 @@
 
   javascript:
     $(function () {
+      $('.datepicker').datepicker({
+        format: 'yyyy-mm-dd',
+        todayBtn: 'linked',
+        keyboardNavigation: false,
+        forceParse: false,
+        calendarWeeks: true,
+        language: 'ko',
+        autoclose: true,
+        startDate: '+0d'
+      });
+
       $('#data_5 .input-daterange').datepicker({
         language: 'ko',
         format: 'yyyy-mm-dd',
@@ -69,4 +84,9 @@
         checkboxClass: 'icheckbox_square-green',
         radioClass: 'iradio_square-green',
       });
+
+      $('.js-switch').each(function() {
+        var switchery = new Switchery(this, {color: '#1AB394'});
+      })
+
     });

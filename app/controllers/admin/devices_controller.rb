@@ -1,5 +1,6 @@
 class Admin::DevicesController < ApplicationController
-  before_action :set_admin_device, only: [:show, :edit, :update, :destroy]
+  # before_action :set_admin_device, only: [:show, :edit, :update, :destroy]
+  before_action :set_admin_device, only: [:show, :destroy]
 
   # GET /admin/devices
   # GET /admin/devices.json
