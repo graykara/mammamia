@@ -10,4 +10,6 @@ Rails.application.routes.draw do
     resources :device_wares
   end
 
+  match '/admin/device/:contract_id/list' => 'admin/devices#list',        as: :device_lists,        via: :get
+  match '/admin/device/:contract_id/list' => 'admin/devices#update_list', as: :device_lists_update, via: :put
 end

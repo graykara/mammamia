@@ -61,23 +61,24 @@
               thead
                 tr
                   th.col-sm-1 계약일자
-                  th.col-sm-1 지역
-                  th.col-sm-1 병원
+                  th.col-sm-2 지역
+                  th.col-sm-2 병원
                   th.col-sm-1 병원코드
                   th.col-sm-1 장비/신청장비
-                  th.col-sm-1 장비관리
+                  th.col-sm-2 장비관리
                   th 고객센터
               tbody
-                - @admin_devices.each do |device|
+                - @admin_contracts.each do |contract|
                   tr
-                    td= device.created_at.strftime("%Y-%m-%d")
-                    td= device.created_at.strftime("%Y-%m-%d")
-                    td= device.created_at.strftime("%Y-%m-%d")
-                    td= device.created_at.strftime("%Y-%m-%d")
-                    td= device.created_at.strftime("%Y-%m-%d")
-                    td= device.created_at.strftime("%Y-%m-%d")
-                    td= device.created_at.strftime("%Y-%m-%d")
-
+                    td= contract.created_at.strftime("%y-%m-%d")
+                    td= contract.try(:hospital_user) ? get_region(contract.hospital_user.partner_detail.address_1) : '-'
+                    td= contract.try(:hospital_user) ? contract.hospital_user.partner_detail.corp_name : '-'
+                    td= contract.hospital_code
+                    td= "#{contract.devices.count} / #{(contract.equipment_quantity.nil?) ? '미신청' : contract.equipment_quantity}"
+                    td
+                      = link_to '관리', (contract.equipment_quantity.to_i > 0) ? device_lists_path(contract) :'javascript:alert("관리를 위해서는 장비 추가를 먼저 해주시기 바랍니다.")', :class => 'btn btn-sm btn-primary m-r-5px'
+                      = link_to '추가', edit_admin_device_path(contract), :class => 'btn btn-sm btn-primary'
+                    td= contract.note
 
 - content_for :head do
   = stylesheet_link_tag 'pages'

@@ -120,7 +120,7 @@
                     td= contract.try(:hospital_user) ? contract.hospital_user.name : '-'
                     td= contract.try(:hospital_user) ? contract.hospital_user.partner_detail.biz_name : '-'
                     td= contract.try(:hospital_user) ? contract.hospital_user.partner_detail.biz_tel : '-'
-                    td 0
+                    td= contract.equipment_quantity
                     td 카드, CD
                     td= contract.updated_at.strftime("%Y-%m-%d")
                     td= (contract.studio_users.count > 0) ? contract.studio_users.first.partner_detail.corp_name : '-'

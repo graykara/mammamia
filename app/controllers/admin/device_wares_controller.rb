@@ -38,7 +38,8 @@ class Admin::DeviceWaresController < ApplicationController
 
     respond_to do |format|
       if @admin_device_ware.save
-        format.html { redirect_to admin_device_wares_path, notice: 'Device ware was successfully created.' }
+        params[:category] = 'hw' if params[:category].nil?
+        format.html { redirect_to admin_device_wares_path(category: params[:category]), notice: '장비 히스토리 정보가 추가 되었습니다.' }
         format.json { render :show, status: :created, location: @admin_device_ware }
       else
         format.html { render :new }
@@ -52,7 +53,8 @@ class Admin::DeviceWaresController < ApplicationController
   def update
     respond_to do |format|
       if @admin_device_ware.update(admin_device_ware_params)
-        format.html { redirect_to admin_device_wares_path, notice: 'Device ware was successfully updated.' }
+        params[:category] = 'hw' if params[:category].nil?
+        format.html { redirect_to admin_device_wares_path(category: params[:category]), notice: '장비 히스토리 정보가 업데이트 되었습니다.' }
         format.json { render :show, status: :ok, location: @admin_device_ware }
       else
         params[:category] = 'hw' if params[:category].nil?

@@ -1,0 +1,72 @@
+.row.wrapper.border-bottom.white-bg.page-heading
+  .col-lg-9
+    h2 장비관리
+    ol.breadcrumb
+      li= link_to 'Home', root_path
+      li.active
+        strong 장비현황
+
+  .row
+    .col-lg-12
+      .ibox.float-e-margins
+        .ibox-title
+          h5= "#{get_region(@contract_hospital.partner_detail.address_1)} [#{@contract_hospital.partner_detail.corp_name} : 코드 #{@admin_contract.hospital_code}] 장비 현황 목록"
+          .ibox-tools
+            a.collapse-link
+              i.fa.fa-chevron-up
+        .ibox-content
+          .table-responsive
+            table.table.table-striped.table-hover
+              thead
+                tr
+                  th.col-sm-1 설치일
+                  th.col-sm-1 관리등급
+                  th.col-sm-1 A/S
+                  th.col-sm-1 장비코드
+                  th.col-sm-1 위치
+                  th.col-sm-1 인증
+                  th.col-sm-1 상태
+                  th 비고
+                  th.col-sm-1 관리
+              tbody
+
+                = simple_form_for(:admin_device, url: device_lists_update_path, :html => {id: 'form', class: '', method: :put}) do |f|
+                  - @admin_devices.each do |device|
+                    = f.simple_fields_for '', device do |d|
+                      tr
+                        td= d.input :setup_at, :label => false, as: :string, :input_html => {:class => 'datepicker input-group date'}
+                        td= d.input :grade, :label => false, :input_html => {:class => 'input-group'}
+                        td= d.input :after_service, :label => false, :input_html => {:class => 'input-group'}
+                        td= d.input :code, :label => false, :input_html => {:class => 'input-group'}
+                        td= d.input :location, :label => false, :input_html => {:class => 'input-group'}
+                        td= d.input :validated, :label => false, :input_html => {:class => 'input-group'}
+                        td= d.input :status, as: :string, :label => false, :input_html => {:class => 'input-group'}
+                        td= d.input :note, :label => false, :input_html => {:class => 'input-group'}
+                        td
+                  tr
+                    td[colspan="9"]= f.submit
+
+
+- content_for :head do
+  = stylesheet_link_tag 'pages'
+
+- content_for :javascript do
+  = javascript_include_tag 'pages'
+
+  javascript:
+    $(function () {
+      $('#data_5 .input-daterange').datepicker({
+        language: 'ko',
+        format: 'yyyy-mm-dd',
+        keyboardNavigation: false,
+        forceParse: false,
+        autoclose: true
+      });
+
+      $('input[name="daterange"]').daterangepicker();
+
+      $('.i-checks').iCheck({
+        checkboxClass: 'icheckbox_square-green',
+        radioClass: 'iradio_square-green',
+      });
+    });

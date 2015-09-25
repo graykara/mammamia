@@ -1,7 +1,335 @@
-= simple_form_for(@admin_device, url: (@admin_device.new_record? ? admin_devices_path : admin_device_path(@admin_device) )) do |f|
-  = f.error_notification
+- if @admin_contract.errors.any?
+  ul
+    - @admin_contract.errors.full_messages.each do |msg|
+      li= msg
 
-  .form-inputs
+= simple_form_for(@admin_contract, url: admin_device_path(@admin_contract), :html => { id: 'form', class: 'wizard-big' } ) do |f|
+  h1 계약(정산)정보
+  fieldset
+    h2 계약(정산)정보
+    .row
+      .table-responsive
+        table.table.table-bordered
+          thead.ruler-sized
+            tr
+              th.col-md-1
+              th.col-md-1
+              th.col-md-2
+              th.col-md-1
+              th.col-md-1
+              th.col-md-2
+          tbody
+            tr
+              td= f.label '병원명', :class => 'control-label'
+              td.contract_corp[colspan="2" ]
+              td= f.label '병원코드', :class => 'control-label'
+              td[colspan="2" ]= (@admin_contract.hospital_code.blank?) ? '자동으로 입력됩니다.' : @admin_contract.hospital_code
+            tr
+              td= f.label '영업담당자', :class => 'control-label'
+              td.contract_market_user[colspan="2" ]
+              td= f.label '스튜디오명', :class => 'control-label'
+              td.contract_studio[colspan="2" ]
+            tr
+              td= f.label '계약일자', :class => 'control-label'
+              td[colspan="2" ]= f.input :contracted_at, :label => false, as: :string, :input_html => { :class => 'datepicker input-group date' }
+              td[rowspan="4" ]= f.label '장비비', :class => 'control-label'
+              td= f.label :equipment_by
+              td= f.input :equipment_by,
+                          collection: [[0, '병원'], [1, '스튜디오']],
+                          label: false,
+                          label_method: :last,
+                          value_method: :first,
+                          as: :radio_buttons,
+                          item_wrapper_class: 'inline',
+                          checked: @admin_contract.equipment_by
+            tr
+              td[rowspan="3" ]= f.label '설치비', :class => 'control-label'
+              td= f.label :setup_by
+              td= f.input :setup_by,
+                          collection: [[0, '병원'], [1, '스튜디오']],
+                          label_method: :last,
+                          value_method: :first,
+                          as: :radio_buttons,
+                          label: false,
+                          item_wrapper_class: 'inline',
+                          checked: @admin_contract.setup_by
+              td= f.label :equipment_quantity
+              td= f.input :equipment_quantity,
+                          label: false,
+                          item_wrapper_class: 'inline',
+                          input_html: { min: '0' }
+            tr
+              td
+                = f.input :setup_free,
+                          collection: [[0, '무상'], [1, '유상']],
+                          label_method: :last,
+                          value_method: :first,
+                          as: :radio_buttons,
+                          label: false,
+                          item_wrapper_class: 'inline',
+                          checked: @admin_contract.setup_free
+              td.form-inline
+                = f.input :setup_fee, as: 'string', inline_label: true
+              td
+                = f.input :equipment_free,
+                          collection: [[0, '무상'], [1, '유상']],
+                          label_method: :last,
+                          value_method: :first,
+                          as: :radio_buttons,
+                          label: false,
+                          item_wrapper_class: 'inline',
+                          checked: @admin_contract.equipment_free
+              td.form-inline
+                = f.input :equipment_fee, as: 'string', inline_label: true
+            tr
+              td[colspan="2" ]= f.input :setup_vat,
+                                        collection: [[0, 'VAT포함'], [1, 'VAT미포함']],
+                                        label_method: :last,
+                                        value_method: :first,
+                                        as: :radio_buttons,
+                                        label: false,
+                                        item_wrapper_class: 'inline',
+                                        checked: @admin_contract.setup_vat
+              td[colspan="2" ]= f.input :equipment_vat,
+                                        collection: [[0, 'VAT포함'], [1, 'VAT미포함']],
+                                        label_method: :last,
+                                        value_method: :first,
+                                        as: :radio_buttons,
+                                        label: false,
+                                        item_wrapper_class: 'inline',
+                                        checked: @admin_contract.equipment_vat
+            tr
+              td[rowspan="3" ]= f.label '운영비', :class => 'control-label'
+              td= f.label :manage_by
+              td[colspan="4" ]= f.input :manage_by,
+                                        collection: [[0, '병원'], [1, '스튜디오']],
+                                        label: false,
+                                        label_method: :last,
+                                        value_method: :first,
+                                        as: :radio_buttons,
+                                        item_wrapper_class: 'inline',
+                                        checked: @admin_contract.manage_by
+            tr
+              td= f.label '발효일', :class => 'control-label'
+              td#manage_start_at
+                = f.input :manage_start_at, :label => false, as: :string, :input_html => { :class => 'datepicker input-group date' }
+              td= f.label '정산주기', :class => 'control-label'
+              td[colspan="2"]
+                = f.input :manage_period,
+                          collection: [[0, '15일'], [1, '30일']],
+                          label_method: :last,
+                          value_method: :first,
+                          as: :radio_buttons,
+                          label: false,
+                          item_wrapper_class: 'inline',
+                          checked: @admin_contract.manage_period
+            tr
+              td= f.label :manage_vat
+              td
+                = f.input :manage_vat,
+                          collection: [[0, 'VAT포함'], [1, 'VAT미포함']],
+                          label_method: :last,
+                          value_method: :first,
+                          as: :radio_buttons,
+                          label: false,
+                          item_wrapper_class: 'inline',
+                          checked: @admin_contract.manage_vat
+              td= f.label :manage_pay_by
+              td[colspan="2" ]
+                = f.input :manage_pay_by,
+                          collection: [[0, '병원'], [1, '스튜디오']],
+                          label_method: :last,
+                          value_method: :first,
+                          as: :radio_buttons,
+                          label: false,
+                          item_wrapper_class: 'inline',
+                          checked: @admin_contract.manage_pay_by
+            tr
+              td[rowspan="4" ]= f.label '영업대행사 수수료', :class => 'control-label'
+              td= f.label :marketing_fee_use
+              td= f.input :marketing_fee_use,
+                          collection: [[0, '있음'], [1, '없음']],
+                          label: false,
+                          label_method: :last,
+                          value_method: :first,
+                          as: :radio_buttons,
+                          item_wrapper_class: 'inline',
+                          checked: @admin_contract.marketing_fee_use
+              td= f.label :marketing_equipment_fee_free
+              td= f.input :marketing_equipment_fee_free,
+                          collection: [[0, '있음'], [1, '없음']],
+                          label: false,
+                          label_method: :last,
+                          value_method: :first,
+                          as: :radio_buttons,
+                          item_wrapper_class: 'inline',
+                          checked: @admin_contract.marketing_equipment_fee_free
+            tr
+              td= f.label :marketing_fee
+              td= f.input :marketing_fee, as: :string, label: false
+              td= f.label :marketing_equipment_fee
+              td[colspan="2" ]= f.input :marketing_equipment_fee, as: :string, label: false
+            tr
+              td= f.label :marketing_fee_ratio
+              td= f.input :marketing_fee_ratio, as: :string, label: false
+              td= f.label :marketing_equipment_fee_ratio
+              td[colspan="2" ]= f.input :marketing_equipment_fee_ratio, as: :string, label: false
+            tr
+              td= f.label :marketing_fee_vat
+              td= f.input :marketing_fee_vat,
+                          collection: [[0, 'VAT포함'], [1, 'VAT미포함']],
+                          label_method: :last,
+                          value_method: :first,
+                          as: :radio_buttons,
+                          label: false,
+                          item_wrapper_class: 'inline',
+                          checked: @admin_contract.marketing_fee_vat
+              td= f.label :marketing_equipment_fee_vat
+              td[colspan="2" ]= f.input :marketing_equipment_fee_vat,
+                                        collection: [[0, 'VAT포함'], [1, 'VAT미포함']],
+                                        label_method: :last,
+                                        value_method: :first,
+                                        as: :radio_buttons,
+                                        label: false,
+                                        item_wrapper_class: 'inline',
+                                        checked: @admin_contract.marketing_equipment_fee_vat
 
-  .form-actions
-    = f.button :submit
+- content_for :head do
+  script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"
+
+- content_for :javascript do
+  javascript:
+    function sleep(milliseconds) {
+      var start, i;
+      start = new Date().getTime();
+      for (i = 0; i < 1e7; i++) {
+        if ((new Date().getTime() - start) > milliseconds) {
+          break;
+        }
+      }
+    }
+
+    sleep(100);
+
+    var width = 500;
+    var height = 600;
+
+
+    $(function () {
+      $("#form").steps({
+        bodyTag: "fieldset",
+        labels: {
+          cancel: '취소',
+          next: '다음단계',
+          previous: '이전단계',
+          finish: '완료'
+        },
+        onStepChanging: function (event, currentIndex, newIndex) {
+          // Always allow going backward even if the current step contains invalid fields!
+          if (currentIndex > newIndex) {
+            return true;
+          }
+
+          // Forbid suppressing "Warning" step if the user is to young
+          if (newIndex === 3) {
+            return false;
+          }
+
+          var form = $(this);
+
+          // Clean up if user went backward before
+          if (currentIndex < newIndex) {
+            // To remove error styles
+            $(".body:eq(" + newIndex + ") label.error", form).remove();
+            $(".body:eq(" + newIndex + ") .error", form).removeClass("error");
+          }
+
+          // Disable validation on fields that are disabled or hidden.
+          form.validate().settings.ignore = ":disabled,:hidden";
+
+          // Start validation; Prevent going forward if false
+          return form.valid();
+        },
+        onStepChanged: function (event, currentIndex, priorIndex) {
+          // Suppress (skip) "Warning" step if the user is old enough.
+          if (currentIndex === 2) {
+            $('.contract_corp').html($('#contract_hospital_user_attributes_partner_detail_attributes_corp_name').val());
+            $('.contract_studio').html($('#contract_studio_users_attributes_0_partner_detail_attributes_corp_name').val());
+            $('.contract_market_user').html($('#contract_marketing_user_id option:selected').text());
+            $('.wizard-big.wizard > .content').css('height', '1000px');
+            $(this).steps("next");
+          } else {
+            $('.wizard-big.wizard > .content').css('height', '740px');
+          }
+
+          // Suppress (skip) "Warning" step if the user is old enough and wants to the previous step.
+          if (currentIndex === 2 && priorIndex === 3) {
+            $(this).steps("previous");
+          }
+        },
+        onFinishing: function (event, currentIndex) {
+          var form = $(this);
+
+          // Disable validation on fields that are disabled.
+          // At this point it's recommended to do an overall check (mean ignoring only disabled fields)
+          form.validate().settings.ignore = ":disabled";
+
+          // Start validation; Prevent form submission if false
+          return form.valid();
+        },
+        onFinished: function (event, currentIndex) {
+          var form = $(this);
+
+          // Submit form input
+          form.submit();
+        },
+        onCanceled: function (event) {
+          history.go(-1);
+        }
+      }).validate({
+        errorPlacement: function (error, element) {
+          element.before(error);
+        },
+        rules: {
+          confirm: {
+            equalTo: "#password"
+          }
+        },
+        showErrors: function (errorMap, errorList) {
+
+          // Clean up any tooltips for valid elements
+          $.each(this.validElements(), function (index, element) {
+            var $element = $(element);
+
+            $element.data("title", "") // Clear the title - there is no error associated anymore
+                    .removeClass("error")
+                    .tooltip("destroy");
+          });
+
+          // Create new tooltips for invalid elements
+          $.each(errorList, function (index, error) {
+            var $element = $(error.element);
+
+            $element.tooltip("destroy") // Destroy any pre-existing tooltip so we can repopulate with new tooltip content
+                    .data("title", error.message)
+                    .addClass("error")
+                    .tooltip(); // Create a new tooltip based on the error message we just set in the title
+          });
+        },
+      });
+
+      $('.datepicker').datepicker({
+        format: 'yyyy-mm-dd',
+        todayBtn: "linked",
+        keyboardNavigation: false,
+        forceParse: false,
+        calendarWeeks: true,
+        language: 'ko',
+        autoclose: true
+      });
+
+      $.validator.addMethod("regex", function (value, element, regexpr) {
+        return regexpr.test(value);
+      }, "형식에 맞는 번호를 입력하세요.");
+
+    });

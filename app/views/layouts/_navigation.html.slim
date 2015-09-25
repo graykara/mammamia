@@ -34,7 +34,7 @@ nav.navbar-default.navbar-static-side role="navigation"
           span.fa.arrow
           ul class=("nav nav-second-level")
             li[class=(is_active_controller('admin/devices') && is_active_action('index'))]   = link_to "장비관리", "/admin/devices"
-            li[class=(is_active_controller('admin/devices') && is_active_controller('new'))]     = link_to "장비등록", "/admin/devices/new"
+            /li[class=(is_active_controller('admin/devices') && is_active_controller('new'))]     = link_to "장비등록", "/admin/devices/new"
             li[class=(is_active_controller('admin/device_wares') && is_active_action('index'))] = link_to "장비히스토리", "/admin/device_wares"
       /li[class=is_active_controller('admin/stastics')]
       /  = link_to "#" do

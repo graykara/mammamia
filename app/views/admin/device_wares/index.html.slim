@@ -23,33 +23,72 @@
 
           .table-responsive
             table.table.table-striped.table-hover
-              thead
-                tr
-                  th.col-sm-1 관리번호
-                  th.col-sm-1 품명
-                  th.col-sm-1 규격
-                  th.col-sm-1 시리얼
-                  th.col-sm-1 등급
-                  th.col-sm-1 유효기간
-                  th.col-sm-1 구입년도
-                  th.col-sm-1 F/W
-                  th.col-sm-1 점검주기
-                  th 비고
-                  th.col-sm-1 관리
-              tbody
-                - @admin_device_wares.each do |device_ware|
+              - if params[:category] == 'hw'
+                thead
                   tr
-                    td= device_ware.version
-                    td= device_ware.name
-                    td= device_ware.spec
-                    td= device_ware.serial
-                    td= get_grade(device_ware.grade)
-                    td= device_ware.expired_at
-                    td= device_ware.purchased_at
-                    td= device_ware.firmware
-                    td= device_ware.check_period
-                    td= device_ware.note
-                    td= link_to '수정', edit_admin_device_ware_path(device_ware, category: params[:category]), :class => 'btn btn-sm btn-primary'
+                    th.col-sm-1 관리번호
+                    th.col-sm-1 품명
+                    th.col-sm-1 규격
+                    th.col-sm-1 시리얼
+                    th.col-sm-1 등급
+                    th.col-sm-1 유효기간
+                    th.col-sm-1 구입년도
+                    th.col-sm-1 F/W
+                    th.col-sm-1 점검주기
+                    th 비고
+                    th.col-sm-1 관리
+                tbody
+                  - @admin_device_wares.each do |device_ware|
+                    tr
+                      td= device_ware.version
+                      td= device_ware.name
+                      td= device_ware.spec
+                      td= device_ware.serial
+                      td= get_grade(device_ware.grade)
+                      td= device_ware.expired_at
+                      td= device_ware.purchased_at
+                      td= device_ware.firmware
+                      td= device_ware.check_period
+                      td= device_ware.note
+                      td= link_to '수정', edit_admin_device_ware_path(device_ware, category: params[:category]), :class => 'btn btn-sm btn-primary'
+              - elsif params[:category] == 'sw'
+                thead
+                  tr
+                    th.col-sm-1 관리번호
+                    th.col-sm-1 OS
+                    th.col-sm-1 응용프로그램
+                    th.col-sm-1 비고
+                    th.col-sm-1 취득일자
+                    th.col-sm-1 배포일자
+                    th.col-sm-1 관리
+                  tbody
+                    - @admin_device_wares.each do |device_ware|
+                      tr
+                        td= device_ware.version
+                        td= device_ware.os
+                        td= device_ware.application
+                        td= device_ware.note
+                        td= device_ware.acquired_at
+                        td= device_ware.distributed_at
+                        td= link_to '수정', edit_admin_device_ware_path(device_ware, category: params[:category]), :class => 'btn btn-sm btn-primary'
+              - elsif params[:category] == 'fw'
+                thead
+                  tr
+                    th.col-sm-1 관리번호
+                    th.col-sm-1 분류
+                    th.col-sm-1 응용프로그램
+                    th.col-sm-1 비고
+                    th.col-sm-1 배포일자
+                    th.col-sm-1 관리
+                  tbody
+                    - @admin_device_wares.each do |device_ware|
+                      tr
+                        td= device_ware.version
+                        td= device_ware.tag
+                        td= device_ware.application
+                        td= device_ware.note
+                        td= device_ware.distributed_at
+                        td= link_to '수정', edit_admin_device_ware_path(device_ware, category: params[:category]), :class => 'btn btn-sm btn-primary'
 
 
 - content_for :head do
