@@ -57,7 +57,8 @@
               td= f.input :equipment_quantity,
                           label: false,
                           item_wrapper_class: 'inline',
-                          input_html: { min: "#{@admin_contract.equipment_quantity > 0 ? @admin_contract.equipment_quantity : 0}" }
+                          input_html: { min: "#{(!@admin_contract.equipment_quantity.nil? && @admin_contract.equipment_quantity > 0) ? @admin_contract.equipment_quantity : 0}" }
+
             tr
               td
                 = f.input :setup_free,
