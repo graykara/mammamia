@@ -21,7 +21,7 @@
                 tr
                   th.col-sm-1 설치일
                   th.col-sm-1 관리등급
-                  th.col-sm-1 A/S
+                  th.col-sm-2 A/S
                   th.col-sm-1 장비코드
                   th.col-sm-1 위치
                   th.col-sm-1 인증
@@ -38,8 +38,14 @@
                         td= d.input :grade, :label => false, :input_html => {:class => 'input-group'},
                                     as: :select,
                                     collection: [['A', 1], ['B', 2], ['C', 3]]
-                        td= d.input :after_service, :label => false, :input_html => {:class => 'input-group'}
-                        td= d.input :code, :label => false, :input_html => {:class => 'input-group'}
+                        td= d.input :after_service, :label => false, :input_html => {:class => 'input-group after_service_field', 'data-toggle' => "modal", 'data-target' => "#myModal4"}
+                        td
+                          - if device.code.blank?
+                            = d.input :code, :label => false, :input_html => {:class => 'input-group'},
+                                      as: :select,
+                                      collection: DeviceCode.empty, order: :code, label_method: lambda { |device| "#{device.code} | #{device.setup_user_name}" }
+                          - else
+                            = device.device_code.code
                         td= d.input :location, :label => false, :input_html => {:class => 'input-group'}
                         td= d.input :validated, :label => false, :input_html => {:class => 'input-group'},
                                     as: :select,
@@ -51,6 +57,42 @@
                     td[colspan="9"]= f.submit "변경사항 등록", :class => 'btn btn-primary'
 
 
+#myModal4.modal.inmodal.fade aria-hidden="true" role="dialog" tabindex="-1"
+  .modal-dialog.modal-sm
+    .modal-content
+      .modal-header
+        button.close data-dismiss="modal" type="button"
+          span aria-hidden="true"  &times;
+          span.sr-only Close
+
+        h4.modal-title A/S
+        small A/S 내역 기입을 사유, 리퍼유무, 접수일자를 선택해주시기 바랍니다.
+      .modal-body#after_service_modal
+        .form-horizontal
+          .hr-line-dashed
+          div.form-group
+            label.col-sm-2.control-label 사유선택
+            div.col-sm-10
+              select name='reason' class='form-control'
+                option value='하드웨어 결함'   하드웨어 결함
+                option value='소프트웨어 결함'  소프트웨어 결함
+                option value='기타' 기타
+          .hr-line-dashed
+          div.form-group
+            label.col-sm-2.control-label 리퍼 유무
+            div.col-sm-10
+              select name='ripper' class='form-control'
+                option value='리퍼제공' 리퍼제공
+                option value='필요없음' 필요없음
+          .hr-line-dashed
+          div.form-group
+            label.col-sm-2.control-label 접수일자
+            div.col-sm-10
+              input#date.string.optional.datepicker.date.form-control name="date" type="text" /
+      .modal-footer
+        button.btn.btn-white data-dismiss="modal" type="button"  Close
+        button.btn.btn-primary.modal_submit type="button"  Save changes
+
 - content_for :head do
   = stylesheet_link_tag 'pages'
 
@@ -58,7 +100,19 @@
   = javascript_include_tag 'pages'
 
   javascript:
+    var selected_as = null;
+
     $(function () {
+      $('.after_service_field').on('click', function() {
+        selected_as = $(this).attr('name');
+      });
+
+      $('.modal_submit').on('click', function() {
+        var result = $('#after_service_modal select[name="reason"]').val() + ' | ' + $('#after_service_modal select[name="ripper"]').val() + ' | ' + $('#after_service_modal input[name="date"]').val();
+        $('input[name="' + selected_as + '"]').val(result);
+        $('.modal').click();
+      });
+
       $('.datepicker').datepicker({
         format: 'yyyy-mm-dd',
         todayBtn: 'linked',
@@ -67,7 +121,7 @@
         calendarWeeks: true,
         language: 'ko',
         autoclose: true,
-        startDate: '+0d'
+        startDate: '-15d'
       });
 
       $('#data_5 .input-daterange').datepicker({

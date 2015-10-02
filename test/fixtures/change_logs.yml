@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: 1
+  controller: MyString
+  action: MyString
+  changed_at: 2015-09-25 17:34:40
+  log: MyText
+  description: MyText
+
+two:
+  user: 1
+  controller: MyString
+  action: MyString
+  changed_at: 2015-09-25 17:34:40
+  log: MyText
+  description: MyText

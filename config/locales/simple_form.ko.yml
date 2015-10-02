@@ -73,6 +73,10 @@ ko:
         acquired_at: 취득일자
         distributed_at: 배포일자
         tag: 분류
+      device_code:
+        created_at: 생성일
+        code: 장비코드
+        setup_user_name: 담당자
 
         date:
           order:

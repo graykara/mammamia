@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resources :contracts
     resources :devices
     resources :device_wares
+    resources :device_codes
   end
 
   match '/admin/device/:contract_id/list' => 'admin/devices#list',        as: :device_lists,        via: :get

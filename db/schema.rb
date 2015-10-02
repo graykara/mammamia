@@ -11,10 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150925054133) do
+ActiveRecord::Schema.define(version: 20151002054537) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "change_logs", force: :cascade do |t|
+    t.integer  "user"
+    t.string   "controller"
+    t.string   "action"
+    t.datetime "changed_at"
+    t.text     "log"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "contracts", force: :cascade do |t|
     t.integer  "hospital_user_id"
@@ -51,6 +62,22 @@ ActiveRecord::Schema.define(version: 20150925054133) do
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.text     "note"
+  end
+
+  create_table "device_codes", force: :cascade do |t|
+    t.string   "code"
+    t.string   "setup_user_name"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "device_id"
+  end
+
+  create_table "device_histories", force: :cascade do |t|
+    t.integer  "device_code_id"
+    t.integer  "status"
+    t.string   "history"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "device_wares", force: :cascade do |t|

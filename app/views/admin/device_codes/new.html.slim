@@ -3,7 +3,7 @@
     h2 장비관리
     ol.breadcrumb
       li= link_to 'Home', root_path
-      li= link_to '장비 히스토리 관리', admin_device_wares_path(category: params[:category])
+      li= link_to '장비코드관리', admin_device_codes_path
       li.active
         strong 신규등록
 
@@ -15,5 +15,5 @@
 
         .ibox-content
           h2 신규등록
-          p 장비 히스토리 신규등록
+          p 장비 코드 신규등록
           == render 'form'

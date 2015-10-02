@@ -27,15 +27,15 @@ nav.navbar-default.navbar-static-side role="navigation"
             /li[class=is_active_controller('index_')] = link_to "영업대행사계약", "/"
             /li[class=is_active_controller('index_money')]     = link_to "정산정보", "/admin/contracts"
 
-      li[class=(is_active_controller('admin/devices')||is_active_controller('admin/device_wares'))]
+      li[class=(is_active_controller('admin/devices')||is_active_controller('admin/device_wares')||is_active_controller('admin/device_codes'))]
         = link_to "#" do
           i.fa.fa-gears
           span.nav-label 장비관리
           span.fa.arrow
           ul class=("nav nav-second-level")
-            li[class=(is_active_controller('admin/devices') && is_active_action('index'))]   = link_to "장비관리", "/admin/devices"
-            /li[class=(is_active_controller('admin/devices') && is_active_controller('new'))]     = link_to "장비등록", "/admin/devices/new"
-            li[class=(is_active_controller('admin/device_wares') && is_active_action('index'))] = link_to "장비히스토리", "/admin/device_wares"
+            li[class=(is_active_controller('admin/devices') && is_active_action('index'))]          = link_to "장비관리", "/admin/devices"
+            li[class=(is_active_controller('admin/device_codes') && is_active_controller('index'))] = link_to "장비코드관리", "/admin/device_codes"
+            li[class=(is_active_controller('admin/device_wares') && is_active_action('index'))]     = link_to "장비히스토리", "/admin/device_wares"
       /li[class=is_active_controller('admin/stastics')]
       /  = link_to "#" do
       /    i.fa.fa-bar-chart

@@ -1,0 +1,43 @@
+.row.wrapper.border-bottom.white-bg.page-heading
+  .col-lg-9
+    h2 장비관리
+    ol.breadcrumb
+      li= link_to 'Home', root_path
+      li.active
+        strong 장비히스토리
+
+  .row
+    .col-lg-12
+      .ibox.float-e-margins
+        .ibox-title
+          h5 장비 히스토리 목록
+          .ibox-tools
+            a.collapse-link
+              i.fa.fa-chevron-up
+        .ibox-content
+          p
+            = link_to '등록', new_admin_device_code_path, :class => 'pull-right btn btn-primary'
+
+          .table-responsive
+            table.table.table-striped.table-hover
+              thead
+                tr
+                  th.col-sm-1 생성일자
+                  th.col-sm-1 장비코드
+                  th.col-sm-1 설치장소
+                  th.col-sm-1 인증
+                  th.col-sm-1 상태
+                  th.col-sm-1 담당자
+                  th.col-sm-1 리퍼이력
+                  th 히스토리
+              tbody
+                - @admin_device_codes.each do |device_code|
+                  tr
+                    td= datetime_humanize(device_code.created_at)
+                    td= device_code.code
+                    td= device_code.try(:device).try(:location)
+                    td= get_validate(device_code.try(:device).try(:validated))
+                    td= get_status(device_code.try(:device).try(:status))
+                    td= device_code.setup_user_name
+                    td= device_code.try(:history).try(:count)
+                    td= '-'
