@@ -1,4 +1,7 @@
 class Device < ActiveRecord::Base
+
+  default_scope { order(created_at: :desc) }
+
   belongs_to :contract
   has_one :device_code
 

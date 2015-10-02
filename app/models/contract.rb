@@ -1,4 +1,7 @@
 class Contract < ActiveRecord::Base
+
+  default_scope { order(created_at: :desc) }
+
   has_one  :hospital_user, class_name: 'User'
   has_many :studio_users, -> { where(user_type: 2) }, class_name: 'User'
   has_many :devices

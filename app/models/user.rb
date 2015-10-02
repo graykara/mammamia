@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   enum role: [:user, :vip, :admin]
   after_initialize :set_default_role, :if => :new_record?
 
+  default_scope { order(created_at: :desc) }
+
   def set_default_role
     self.role ||= :user
   end
