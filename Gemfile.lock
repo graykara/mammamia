@@ -94,6 +94,9 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     erubis (2.7.0)
+    espinita (0.0.9)
+      rails (>= 4.0)
+      request_store
     execjs (2.5.2)
     font-awesome-rails (4.3.0.0)
       railties (>= 3.2, < 5.0)
@@ -237,6 +240,7 @@ DEPENDENCIES
   capistrano3-unicorn
   coffee-rails (~> 4.1.0)
   devise
+  espinita
   font-awesome-rails (= 4.3.0.0)
   gon
   jbuilder (~> 2.0)

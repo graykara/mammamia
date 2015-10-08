@@ -16,6 +16,10 @@ module ApplicationHelper
     (arg.nil?)? '-' : arg.strftime('%Y-%m-%d')
   end
 
+  def datetimefull_humanize(arg)
+    (arg.nil?)? '-' : arg.strftime('%Y-%m-%d %H:%M:%S')
+  end
+
   def get_grade(arg)
     case arg
       when 1
@@ -49,5 +53,17 @@ module ApplicationHelper
       else
         content_tag(:span, '-', class: 'label', )
     end
+  end
+
+  def humanize_changes_for(changes)
+
+  end
+
+  def humanize_history(audit)
+    "#{datetimefull_humanize(audit.updated_at)} 에 #{User.find(audit.user_id).name} 님에 의해서 [#{I18n.t('simple_form.labels.device_ware.spec')}] 항목이 #{audit.audited_changes}로 변경 되었습니다."
+  end
+
+  def humanize_version(version_id)
+    DeviceWare.find(version_id).version
   end
 end

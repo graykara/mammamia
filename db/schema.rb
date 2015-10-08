@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151002054537) do
+ActiveRecord::Schema.define(version: 20151007091351) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,6 +70,9 @@ ActiveRecord::Schema.define(version: 20151002054537) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.integer  "device_id"
+    t.integer  "hw_id"
+    t.integer  "sw_id"
+    t.integer  "fw_id"
   end
 
   create_table "device_histories", force: :cascade do |t|
@@ -114,6 +117,23 @@ ActiveRecord::Schema.define(version: 20151002054537) do
     t.datetime "updated_at",    null: false
     t.date     "setup_at"
   end
+
+  create_table "espinita_audits", force: :cascade do |t|
+    t.integer  "auditable_id"
+    t.string   "auditable_type"
+    t.integer  "user_id"
+    t.string   "user_type"
+    t.text     "audited_changes"
+    t.string   "comment"
+    t.integer  "version"
+    t.string   "action"
+    t.string   "remote_address"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "espinita_audits", ["auditable_type", "auditable_id"], name: "index_espinita_audits_on_auditable_type_and_auditable_id", using: :btree
+  add_index "espinita_audits", ["user_type", "user_id"], name: "index_espinita_audits_on_user_type_and_user_id", using: :btree
 
   create_table "partner_details", force: :cascade do |t|
     t.integer  "user_type"

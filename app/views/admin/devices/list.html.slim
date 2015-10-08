@@ -25,6 +25,9 @@
                   th.col-sm-1 장비코드
                   th.col-sm-1 위치
                   th.col-sm-1 인증
+                  th.col-sm-1 H/W
+                  th.col-sm-1 S/W
+                  th.col-sm-1 F/W
                   th.col-sm-1 상태
                   th 비고
                   /th.col-sm-1 관리
@@ -43,18 +46,21 @@
                           - if device.code.blank?
                             = d.input :code, :label => false, :input_html => {:class => 'input-group'},
                                       as: :select,
-                                      collection: DeviceCode.empty, order: :code, label_method: lambda { |device| "#{device.code} | #{device.setup_user_name}" }
+                                      collection: DeviceCode.empty, order: :code, label_method: lambda { |device| "#{device.code} | #{device.setup_user_name} | #{humanize_version(device.hw_id)} | #{humanize_version(device.sw_id)} | #{humanize_version(device.fw_id)}" }
                           - else
                             = device.device_code.code
                         td= d.input :location, :label => false, :input_html => {:class => 'input-group'}
                         td= d.input :validated, :label => false, :input_html => {:class => 'input-group'},
                                     as: :select,
                                     collection: [['인증', 0], ['미인증', 1]]
+                        td= (device.device_code.try(:hw_id).blank?)?'-': DeviceWare.find(device.device_code.hw_id).version
+                        td= (device.device_code.try(:sw_id).blank?)?'-': DeviceWare.find(device.device_code.sw_id).version
+                        td= (device.device_code.try(:fw_id).blank?)?'-': DeviceWare.find(device.device_code.fw_id).version
                         td= d.input :status, as: :boolean, :label => false, :input_html => {:class => 'js-switch input-group'}
                         td= d.input :note, :label => false, :input_html => {:class => 'input-group'}
                         /td
                   tr
-                    td[colspan="9"]= f.submit "변경사항 등록", :class => 'btn btn-primary'
+                    td[colspan="12"]= f.submit "변경사항 등록", :class => 'btn btn-primary'
 
 
 #myModal4.modal.inmodal.fade aria-hidden="true" role="dialog" tabindex="-1"

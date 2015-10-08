@@ -5,7 +5,10 @@
     .hr-line-dashed
     .form-group
       = f.label :code, :class => 'col-sm-2 control-label'
-      = f.input :code, autofocus: true, wrapper_html: {class: 'col-sm-10'}, label: false, required: true
+      = f.input :code, autofocus: true, wrapper_html: {class: 'col-sm-10'}, label: false, required: true, input_html: { 'data-toggle' => "modal", 'data-target' => "#myModal4" }
+      = f.input :hw_id, as: :hidden
+      = f.input :sw_id, as: :hidden
+      = f.input :fw_id, as: :hidden
     .hr-line-dashed
     .form-group
       = f.label :setup_user_name, :class => 'col-sm-2 control-label'
@@ -14,10 +17,60 @@
     = f.submit @admin_device_code.new_record? ? '등록' : '수정', :class => 'btn btn-primary'
 
 
+#myModal4.modal.inmodal.fade aria-hidden="true" role="dialog" tabindex="-1"
+  .modal-dialog.modal-sm
+    .modal-content
+      .modal-header
+        button.close data-dismiss="modal" type="button"
+          span aria-hidden="true"  &times;
+          span.sr-only Close
+
+        h4.modal-title 장비코드 생성
+        small H/W, S/W, F/W 를 선택하시면 코드는 자동으로 생성 됩니다.
+      .modal-body#after_service_modal
+        .form-horizontal
+          .hr-line-dashed
+          div.form-group
+            label.col-sm-2.control-label H/W
+            div.col-sm-10
+              select name='hw' class='form-control'
+                - DeviceWare.scope_by_category('hw').each do |hw|
+                  option[value="#{hw.id}"]= hw.version
+          .hr-line-dashed
+          div.form-group
+            label.col-sm-2.control-label S/W
+            div.col-sm-10
+              select name='sw' class='form-control'
+                - DeviceWare.scope_by_category('sw').each do |sw|
+                  option[value="#{sw.id}"]= sw.version
+          .hr-line-dashed
+          div.form-group
+            label.col-sm-2.control-label F/W
+            div.col-sm-10
+              select name='fw' class='form-control'
+                - DeviceWare.scope_by_category('fw').each do |fw|
+                  option[value="#{fw.id}"]= fw.version
+            input[type='hidden' name='serial' value="#{DeviceCode.serial}"]
+      .modal-footer
+        button.btn.btn-white data-dismiss="modal" type="button"  Close
+        button.btn.btn-primary.modal_submit type="button"  Save changes
+
 - content_for :javascript do
   javascript:
     $(function() {
       $('.form-group > .form-group').removeClass('form-group');
+
+      $('.modal_submit').on('click', function () {
+        var result = 'h' + $('#after_service_modal select[name="hw"]').val() + '_' + $('#after_service_modal input[name="serial"]').val();
+        var hw_id = $('#after_service_modal select[name="hw"]').val();
+        var sw_id = $('#after_service_modal select[name="sw"]').val();
+        var fw_id = $('#after_service_modal select[name="fw"]').val();
+        $('input[name="device_code[hw_id]"]').val(hw_id);
+        $('input[name="device_code[sw_id]"]').val(sw_id);
+        $('input[name="device_code[fw_id]"]').val(fw_id);
+        $('input[name="device_code[code]"]').val(result);
+        $('.modal').click();
+      });
 
       $('#form').validate({
         errorPlacement: function (error, element) {

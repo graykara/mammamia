@@ -1,5 +1,7 @@
 class DeviceWare < ActiveRecord::Base
 
+  auditable
+
   default_scope { order(created_at: :desc) }
 
   validates :version, presence: true, length: {minimum: 2, maximum: 4}

@@ -17,3 +17,12 @@
 
           p 장비 히스토리 수정
           == render 'form'
+
+          div
+            p 히스토리
+            - @admin_device_ware.audits.each do |audit|
+              p
+                = humanize_history(audit)
+                /= I18n.t('simple_form.labels.device_ware.'.audit.audited_changes.keys.map(&:to_s)[0])
+                /= t(audit.audited_changes.keys.map(&:to_s)[0])
+                /= audit.audited_change[0]

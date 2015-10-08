@@ -30,6 +30,7 @@
                   th.col-sm-1 담당자
                   th.col-sm-1 리퍼이력
                   th 히스토리
+                  th.col-sm-1 관리
               tbody
                 - @admin_device_codes.each do |device_code|
                   tr
@@ -41,3 +42,4 @@
                     td= device_code.setup_user_name
                     td= device_code.try(:history).try(:count)
                     td= '-'
+                    td= link_to '수정', edit_admin_device_code_path(device_code), :class => 'btn btn-sm btn-primary'

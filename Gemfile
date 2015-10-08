@@ -23,6 +23,7 @@ gem 'simple_form'
 gem 'slim-rails'
 gem 'unicorn'
 gem 'unicorn-rails'
+gem 'espinita'
 group :development do
   gem 'better_errors'
   gem 'capistrano', '~> 3.0.1'
